@@ -1,0 +1,29 @@
+<resources>
+    <string name="home">Home</string>
+    <string name="check_in">Your check-in</string>
+    <string name="assessment">Voice assessment</string>
+    <string name="intro">Listen to each question, then answer in your own words.</string>
+    <string name="spoken_count">3 spoken questions</string>
+    <string name="start">Start Test</string>
+    <string name="resume">Resume test</string>
+    <string name="last_test">Last scored test</string>
+    <string name="no_test">Your result will appear here after your first scored test.</string>
+    <string name="pending_test">Completed test · Awaiting a score</string>
+    <string name="orientation">Orientation</string>
+    <string name="progress_text">Question %1$d of %2$d</string>
+    <string name="back_home">Back to Home</string>
+    <string name="type_answer">Type answer</string>
+    <string name="review_answer">Review answer</string>
+    <string name="answer_hint">Your answer</string>
+    <string name="enter_answer">Enter an answer to continue.</string>
+    <string name="ready">Ready for your answer</string>
+    <string name="type_hint">Type your response, then check what was captured.</string>
+    <string name="captured">Answer captured</string>
+    <string name="check_transcript">Check what the app heard.</string>
+    <string name="check_typed">Check your answer before continuing.</string>
+    <string name="next_question">Next question</string>
+    <string name="finish_test">Finish test</string>
+    <string name="edit_answer">Edit answer</string>
+    <string name="test_complete">Test complete</string>
+    <string name="completion">Your three answers have been saved on this phone. The test is awaiting a score.</string>
+</resources>

@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><shape android:shape="oval"><solid android:color="@color/lilac"/></shape></item>
+    <item android:top="7dp" android:bottom="7dp" android:left="7dp" android:right="7dp">
+        <shape android:shape="oval"><gradient android:type="radial" android:centerX="0.30" android:centerY="0.22"
+            android:gradientRadius="111dp" android:startColor="#B795BA" android:centerColor="#865F94" android:endColor="#4C345D"/></shape>
+    </item>
+    <item android:drawable="@drawable/wave_light" android:gravity="center" android:width="53dp" android:height="53dp"/>
+</layer-list>
