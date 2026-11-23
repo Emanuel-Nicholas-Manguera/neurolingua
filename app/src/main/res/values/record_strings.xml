@@ -10,6 +10,7 @@
         <item quantity="other">%1$d of %2$d points</item>
     </plurals>
     <string name="score_summary">%1$s · %2$d / %3$d</string>
+    <string name="score_fraction">%1$d / %2$d</string>
     <string name="recorded_answer">Answer: %1$s</string>
     <string name="reference_answer">Reference: %1$s</string>
     <string name="save_score">Save score</string>

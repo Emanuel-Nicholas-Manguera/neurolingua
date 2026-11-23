@@ -103,9 +103,11 @@ public final class MainActivity extends Activity {
         if (scored != 0) {
             Assessment last = store.get(scored);
             findViewById(R.id.last_result).setVisibility(View.GONE);
-            Button record = findViewById(R.id.open_record);
+            View record = findViewById(R.id.open_record);
             record.setVisibility(View.VISIBLE);
-            record.setText(getString(R.string.score_summary, last.displayDate(), last.score(), last.items().size()));
+            ((TextView) findViewById(R.id.last_date)).setText(last.displayDate());
+            ((TextView) findViewById(R.id.last_score)).setText(getString(R.string.score_fraction, last.score(), last.items().size()));
+            record.setContentDescription(getString(R.string.score_summary, last.displayDate(), last.score(), last.items().size()));
             record.setOnClickListener(v -> openRecord(scored));
         }
     }
