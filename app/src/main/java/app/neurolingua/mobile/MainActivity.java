@@ -22,6 +22,9 @@ import java.time.LocalDate;
 public final class MainActivity extends Activity {
     private FrameLayout root;
     private AssessmentStore store;
+    private PromptSpeaker speaker;
+    private boolean foreground;
+    private boolean readOnResume;
     private long sessionId;
     private String page = "home";
     private AlertDialog editor;
@@ -43,6 +46,7 @@ public final class MainActivity extends Activity {
         }
         setContentView(root);
         store = new AssessmentStore(this);
+        speaker = new PromptSpeaker(this);
         if (Build.VERSION.SDK_INT >= 33) {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
                     OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::goBack);
@@ -55,6 +59,7 @@ public final class MainActivity extends Activity {
             showExam();
             if (savedInstanceState != null && savedInstanceState.containsKey("editing")
                     && "exam".equals(page)) {
+                readOnResume = false;
                 editAnswer(store.get(sessionId).currentItem(), savedInstanceState.getString("editing"));
             }
         } else {
@@ -63,6 +68,8 @@ public final class MainActivity extends Activity {
     }
 
     private void screen(String name, int layout) {
+        speaker.cancel();
+        readOnResume = false;
         page = name;
         root.removeAllViews();
         getLayoutInflater().inflate(layout, root, true);
@@ -124,12 +131,30 @@ public final class MainActivity extends Activity {
                 showExam();
             });
         } else {
+            secondary.setVisibility(View.VISIBLE);
+            secondary.setText(R.string.repeat);
+            secondary.setOnClickListener(v -> readPrompt(item));
             primary.setText(R.string.type_answer);
             primary.setOnClickListener(v -> editAnswer(item, ""));
+            if (foreground) readPrompt(item);
+            else readOnResume = true;
         }
     }
 
+    private void readPrompt(Assessment.Item item) {
+        TextView status = findViewById(R.id.turn_status);
+        TextView hint = findViewById(R.id.turn_hint);
+        status.setText(R.string.reading);
+        hint.setText(R.string.listen_prompt);
+        speaker.read(item.prompt(), played -> {
+            status.setText(R.string.ready);
+            hint.setText(played ? R.string.type_hint : R.string.playback_unavailable);
+        });
+    }
+
     private void editAnswer(Assessment.Item item, String initial) {
+        speaker.cancel();
+        readOnResume = false;
         FrameLayout fields = new FrameLayout(this);
         int margin = Math.round(24 * getResources().getDisplayMetrics().density);
         fields.setPadding(margin, margin / 2, margin, 0);
@@ -170,6 +195,25 @@ public final class MainActivity extends Activity {
         else showHome();
     }
 
+    @Override protected void onResume() {
+        super.onResume();
+        foreground = true;
+        if (readOnResume && "exam".equals(page)) {
+            readOnResume = false;
+            readPrompt(store.get(sessionId).currentItem());
+        }
+    }
+
+    @Override protected void onPause() {
+        foreground = false;
+        speaker.cancel();
+        if ("exam".equals(page) && store.get(sessionId).currentItem().answer().isEmpty()) {
+            ((TextView) findViewById(R.id.turn_status)).setText(R.string.ready);
+            ((TextView) findViewById(R.id.turn_hint)).setText(R.string.type_hint);
+        }
+        super.onPause();
+    }
+
     @SuppressWarnings("deprecation")
     @Override public void onBackPressed() {
         goBack();
@@ -183,6 +227,7 @@ public final class MainActivity extends Activity {
     }
 
     @Override protected void onDestroy() {
+        speaker.close();
         if (editor != null) editor.dismiss();
         store.close();
         super.onDestroy();

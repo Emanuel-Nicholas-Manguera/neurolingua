@@ -17,6 +17,10 @@
     <string name="answer_hint">Your answer</string>
     <string name="enter_answer">Enter an answer to continue.</string>
     <string name="ready">Ready for your answer</string>
+    <string name="reading">Reading question…</string>
+    <string name="listen_prompt">Listen to the question.</string>
+    <string name="repeat">Repeat</string>
+    <string name="playback_unavailable">Read the question above. Audio playback is unavailable.</string>
     <string name="type_hint">Type your response, then check what was captured.</string>
     <string name="captured">Answer captured</string>
     <string name="check_transcript">Check what the app heard.</string>
