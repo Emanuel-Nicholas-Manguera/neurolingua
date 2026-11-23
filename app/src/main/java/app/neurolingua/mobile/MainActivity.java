@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Insets;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
@@ -156,14 +157,28 @@ public final class MainActivity extends Activity {
         }
         screen("exam", R.layout.screen_exam);
         findViewById(R.id.home).setOnClickListener(v -> showHome());
-        TextView number = findViewById(R.id.question_number);
-        number.setText(getString(R.string.progress_text, item.position() + 1, session.items().size()));
-        ProgressBar progress = findViewById(R.id.progress);
-        progress.setMax(session.items().size());
-        progress.setProgress(item.position() + 1);
+        showProgress(item.position() + 1, session.items().size());
         TextView prompt = findViewById(R.id.prompt);
         prompt.setText(item.prompt());
         renderAnswer(session, item);
+    }
+
+    private void showProgress(int currentQuestion, int questionCount) {
+        TextView number = findViewById(R.id.question_number);
+        number.setText(getString(R.string.progress_text, currentQuestion, questionCount));
+        LinearLayout track = findViewById(R.id.progress);
+        int gap = Math.round(5 * getResources().getDisplayMetrics().density);
+        for (int i = 0; i < questionCount; i++) {
+            GradientDrawable fill = new GradientDrawable();
+            fill.setColor(getColor(i < currentQuestion ? R.color.plum : R.color.line));
+            fill.setCornerRadius(track.getLayoutParams().height / 2f);
+            View segment = new View(this);
+            segment.setBackground(fill);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    0, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+            if (i > 0) params.setMarginStart(gap);
+            track.addView(segment, params);
+        }
     }
 
     private void renderAnswer(Assessment session, Assessment.Item item) {

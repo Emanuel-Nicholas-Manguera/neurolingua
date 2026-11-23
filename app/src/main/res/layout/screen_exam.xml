@@ -11,9 +11,9 @@
             <TextView style="@style/Label.Kicker" android:layout_width="0dp" android:layout_weight="1" android:text="@string/orientation"/>
             <TextView style="@style/Label.Muted" android:id="@+id/question_number"/>
         </LinearLayout>
-        <ProgressBar android:id="@+id/progress" style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="8dp"
-            android:progressTint="@color/plum" android:progressBackgroundTint="@color/line"/>
+        <LinearLayout android:id="@+id/progress" android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="4dp" android:layout_marginTop="8dp"
+            android:importantForAccessibility="noHideDescendants"/>
         <TextView style="@style/Label.Heading" android:id="@+id/prompt" android:layout_width="match_parent"
             android:layout_marginTop="26dp" android:gravity="center" android:textSize="34sp"/>
         <Space android:layout_width="1dp" android:layout_height="18dp" android:layout_weight="1"/>
