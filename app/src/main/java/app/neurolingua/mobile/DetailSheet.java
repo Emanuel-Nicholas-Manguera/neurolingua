@@ -73,7 +73,7 @@ final class DetailSheet {
         button.setAllCaps(false);
         button.setTextSize(16);
         button.setLetterSpacing(0);
-        button.setTextColor(activity.getColor(primary ? R.color.cream : R.color.plum));
+        button.setTextColor(activity.getColor(primary ? R.color.on_plum : R.color.plum));
         button.setMinHeight(dp(48));
         button.setStateListAnimator(null);
         button.setPadding(dp(14), dp(8), dp(14), dp(8));

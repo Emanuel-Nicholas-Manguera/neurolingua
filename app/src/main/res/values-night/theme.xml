@@ -1,0 +1,14 @@
+<resources>
+    <style name="PlatformTheme" parent="android:style/Theme.Material.NoActionBar"/>
+    <style name="PlatformAlertTheme" parent="android:style/Theme.Material.Dialog.Alert"/>
+    <color name="paper">#221F25</color>
+    <color name="ink">#F4ECF4</color>
+    <color name="muted">#D1C2D2</color>
+    <color name="line">#4F4352</color>
+    <color name="lilac">#382D3B</color>
+    <color name="plum">#DAB4E0</color>
+    <color name="on_plum">#33203C</color>
+    <color name="control_highlight">#33DAB4E0</color>
+    <color name="legacy_navigation_bar">@color/paper</color>
+    <bool name="light_system_bars">false</bool>
+</resources>
