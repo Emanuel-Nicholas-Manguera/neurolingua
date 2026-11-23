@@ -1,0 +1,15 @@
+<resources>
+    <string name="close">Close</string>
+    <string name="review_test">Review answers</string>
+    <string name="mark_instructions">For the reviewer: mark each answer using the reference from the day the test began.</string>
+    <string name="correct">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="test_record">Test record</string>
+    <string name="points">%1$d of %2$d points</string>
+    <string name="score_summary">%1$s · %2$d / %3$d</string>
+    <string name="recorded_answer">Answer: %1$s</string>
+    <string name="reference_answer">Reference: %1$s</string>
+    <string name="save_score">Save score</string>
+    <string name="awarded">Correct · 1 point</string>
+    <string name="missed">Incorrect · 0 points</string>
+</resources>

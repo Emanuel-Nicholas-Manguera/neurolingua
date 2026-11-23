@@ -55,4 +55,24 @@ public class AssessmentStoreTest {
         assertEquals(0, store.latestId(AssessmentStore.SCORED));
         assertNotEquals(id, store.startOrResume(day));
     }
+
+    @Test public void incompleteMarksStayPendingAndFinalScoresAreStable() {
+        long id = store.startOrResume(day);
+        store.setReviewMark(id, 0, 1);
+        assertNull(store.get(id).items().get(0).mark());
+        assertFalse(store.finalizeScore(id));
+        for (int i = 0; i < 3; i++) {
+            store.saveDraft(id, i, "test response", "typed");
+            store.confirm(id, i);
+        }
+        store.setReviewMark(id, 0, 1);
+        assertFalse(store.finalizeScore(id));
+        assertEquals(AssessmentStore.PENDING, store.get(id).status());
+        store.setReviewMark(id, 1, 0);
+        store.setReviewMark(id, 2, 1);
+        assertTrue(store.finalizeScore(id));
+        store.setReviewMark(id, 1, 1);
+        assertFalse(store.finalizeScore(id));
+        assertEquals(2, store.get(id).score());
+    }
 }

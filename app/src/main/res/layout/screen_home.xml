@@ -33,7 +33,11 @@
         <TextView style="@style/Label.Subhead" android:layout_marginTop="18dp" android:text="@string/last_test"/>
         <TextView android:id="@+id/last_result" style="@style/Label.Muted"
             android:layout_marginTop="8dp" android:text="@string/no_test"/>
+        <Button android:id="@+id/open_record" style="@style/Control"
+            android:layout_width="match_parent" android:layout_marginTop="8dp" android:visibility="gone"/>
         <TextView android:id="@+id/pending" style="@style/Label" android:layout_marginTop="12dp"
             android:text="@string/pending_test" android:visibility="gone"/>
+        <Button android:id="@+id/review" style="@style/Control" android:layout_width="match_parent"
+            android:layout_marginTop="6dp" android:text="@string/review_test" android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>

@@ -26,6 +26,8 @@ public final class MainActivity extends Activity {
     private String page = "home";
     private AlertDialog editor;
     private EditText answerInput;
+    private DetailSheet detail;
+    private long detailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,10 @@ public final class MainActivity extends Activity {
             }
         } else {
             showHome();
+            if (savedInstanceState != null) {
+                long recordId = savedInstanceState.getLong("detailId");
+                if (recordId != 0) openRecord(recordId);
+            }
         }
     }
 
@@ -77,9 +83,40 @@ public final class MainActivity extends Activity {
             sessionId = store.startOrResume(LocalDate.now());
             showExam();
         });
-        if (store.latestId(AssessmentStore.PENDING) != 0) {
+        long pending = store.latestId(AssessmentStore.PENDING);
+        if (pending != 0) {
             findViewById(R.id.pending).setVisibility(View.VISIBLE);
+            Button review = findViewById(R.id.review);
+            review.setVisibility(View.VISIBLE);
+            review.setOnClickListener(v -> openRecord(pending));
         }
+        long scored = store.latestId(AssessmentStore.SCORED);
+        if (scored != 0) {
+            Assessment last = store.get(scored);
+            findViewById(R.id.last_result).setVisibility(View.GONE);
+            Button record = findViewById(R.id.open_record);
+            record.setVisibility(View.VISIBLE);
+            record.setText(getString(R.string.score_summary, last.displayDate(), last.score(), last.items().size()));
+            record.setOnClickListener(v -> openRecord(scored));
+        }
+    }
+
+    private void openRecord(long id) {
+        Assessment session = store.get(id);
+        if (session == null || AssessmentStore.ACTIVE.equals(session.status())) return;
+        detailId = id;
+        showDetail(RecordSheet.create(this, store, session, this::showHome));
+    }
+
+    private void showDetail(DetailSheet sheet) {
+        detail = sheet;
+        detail.dialog.setOnDismissListener(dialog -> {
+            if (detail == sheet) {
+                detail = null;
+                detailId = 0;
+            }
+        });
+        detail.show();
     }
 
     private void showExam() {
@@ -179,10 +216,12 @@ public final class MainActivity extends Activity {
         super.onSaveInstanceState(state);
         state.putLong("sessionId", sessionId);
         state.putString("page", page);
+        state.putLong("detailId", detailId);
         if (editor != null && editor.isShowing()) state.putString("editing", answerInput.getText().toString());
     }
 
     @Override protected void onDestroy() {
+        if (detail != null) detail.dialog.dismiss();
         if (editor != null) editor.dismiss();
         store.close();
         super.onDestroy();

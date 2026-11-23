@@ -117,6 +117,23 @@ final class AssessmentStore extends SQLiteOpenHelper {
                 new String[]{Long.toString(id), Integer.toString(position)});
     }
 
+    void setReviewMark(long id, int position, int mark) {
+        if (mark != 0 && mark != 1) throw new IllegalArgumentException("Expected a binary mark");
+        ContentValues values = new ContentValues();
+        values.put("mark", mark);
+        getWritableDatabase().update("items", values, "session_id=? AND position=? AND confirmed=1 "
+                        + "AND EXISTS(SELECT 1 FROM sessions WHERE id=items.session_id AND status='pending')",
+                new String[]{Long.toString(id), Integer.toString(position)});
+    }
+
+    boolean finalizeScore(long id) {
+        ContentValues values = new ContentValues();
+        values.put("status", SCORED);
+        return getWritableDatabase().update("sessions", values, "id=? AND status='pending' "
+                        + "AND NOT EXISTS(SELECT 1 FROM items WHERE session_id=sessions.id AND mark IS NULL)",
+                new String[]{Long.toString(id)}) == 1;
+    }
+
     void confirm(long id, int position) {
         SQLiteDatabase db = getWritableDatabase();
         String sessionId = Long.toString(id);
