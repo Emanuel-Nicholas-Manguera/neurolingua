@@ -17,8 +17,9 @@ final class RecordSheet {
         if (reviewing) {
             sheet.add(sheet.text(activity.getString(R.string.mark_instructions), 16, R.color.ink), 12);
         } else {
-            sheet.add(sheet.text(activity.getString(R.string.points, session.score(), session.items().size()),
-                    25, R.color.plum), 10);
+            int possible = session.items().size();
+            String result = activity.getResources().getQuantityString(R.plurals.points, possible, session.score(), possible);
+            sheet.add(sheet.text(result, 25, R.color.plum), 10);
         }
         Button save = sheet.button(activity.getString(R.string.save_score), true);
         for (Assessment.Item item : session.items()) {

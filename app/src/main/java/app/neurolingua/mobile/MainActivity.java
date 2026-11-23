@@ -83,6 +83,7 @@ public final class MainActivity extends Activity {
 
     private void showHome() {
         screen("home", R.layout.screen_home);
+        findViewById(R.id.assessment_card).setClipToOutline(true);
         findViewById(R.id.help).setOnClickListener(v -> openHelp());
         boolean resume = store.latestId(AssessmentStore.ACTIVE) != 0;
         Button start = findViewById(R.id.start_test);
@@ -231,6 +232,8 @@ public final class MainActivity extends Activity {
         else showHome();
     }
 
+    // Android 8–12 dispatch Back here. The API 33+ callback is registered in onCreate.
+    @android.annotation.SuppressLint("GestureBackNavigation")
     @SuppressWarnings("deprecation")
     @Override public void onBackPressed() {
         goBack();
