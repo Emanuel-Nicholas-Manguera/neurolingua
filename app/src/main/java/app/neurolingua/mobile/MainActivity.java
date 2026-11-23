@@ -27,6 +27,7 @@ public final class MainActivity extends Activity {
     private AlertDialog editor;
     private EditText answerInput;
     private DetailSheet detail;
+    private MariaSheet maria;
     private long detailId;
 
     @Override
@@ -64,6 +65,12 @@ public final class MainActivity extends Activity {
             if (savedInstanceState != null) {
                 long recordId = savedInstanceState.getLong("detailId");
                 if (recordId != 0) openRecord(recordId);
+                else if (savedInstanceState.getBoolean("helpOpen")) {
+                    openHelp();
+                    String last = savedInstanceState.getString("lastQuestion", "");
+                    if (!last.isEmpty()) maria.ask(last);
+                    maria.input.setText(savedInstanceState.getString("helpDraft", ""));
+                }
             }
         }
     }
@@ -76,6 +83,7 @@ public final class MainActivity extends Activity {
 
     private void showHome() {
         screen("home", R.layout.screen_home);
+        findViewById(R.id.help).setOnClickListener(v -> openHelp());
         boolean resume = store.latestId(AssessmentStore.ACTIVE) != 0;
         Button start = findViewById(R.id.start_test);
         start.setText(resume ? R.string.resume : R.string.start);
@@ -105,7 +113,22 @@ public final class MainActivity extends Activity {
         Assessment session = store.get(id);
         if (session == null || AssessmentStore.ACTIVE.equals(session.status())) return;
         detailId = id;
-        showDetail(RecordSheet.create(this, store, session, this::showHome));
+        DetailSheet record = RecordSheet.create(this, store, session, this::showHome);
+        if (AssessmentStore.SCORED.equals(session.status())) {
+            Button ask = record.button(getString(R.string.ask_maria), true);
+            ask.setOnClickListener(v -> {
+                record.dialog.dismiss();
+                openHelp();
+            });
+            record.add(ask, 16);
+        }
+        showDetail(record);
+    }
+
+    private void openHelp() {
+        detailId = 0;
+        maria = new MariaSheet(this, store);
+        showDetail(maria.sheet);
     }
 
     private void showDetail(DetailSheet sheet) {
@@ -114,6 +137,7 @@ public final class MainActivity extends Activity {
             if (detail == sheet) {
                 detail = null;
                 detailId = 0;
+                maria = null;
             }
         });
         detail.show();
@@ -217,6 +241,11 @@ public final class MainActivity extends Activity {
         state.putLong("sessionId", sessionId);
         state.putString("page", page);
         state.putLong("detailId", detailId);
+        if (maria != null) {
+            state.putBoolean("helpOpen", true);
+            state.putString("helpDraft", maria.input.getText().toString());
+            state.putString("lastQuestion", maria.lastQuestion);
+        }
         if (editor != null && editor.isShowing()) state.putString("editing", answerInput.getText().toString());
     }
 
