@@ -22,7 +22,7 @@
                 <TextView style="@style/Label" android:maxWidth="232dp" android:layout_marginTop="10dp"
                     android:textColor="@color/cream" android:text="@string/intro"/>
                 <TextView style="@style/Label.Muted" android:layout_marginTop="12dp"
-                    android:textColor="@color/cream" android:text="@string/spoken_count"/>
+                    android:textColor="@color/cream" android:text="@string/question_count"/>
                 <Button android:id="@+id/start_test" style="@style/Control.Hero"
                     android:layout_marginTop="18dp" android:layout_width="match_parent" android:text="@string/start"/>
             </LinearLayout>

@@ -31,10 +31,5 @@
             <Button style="@style/Control.Primary" android:id="@+id/primary_action"
                 android:layout_width="0dp" android:layout_weight="1"/>
         </LinearLayout>
-        <Button style="@style/Control" android:id="@+id/alternate_input" android:layout_width="match_parent"
-            android:layout_marginTop="4dp" android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/plum" android:text="@string/type_answer"/>
-        <Button style="@style/Control" android:id="@+id/system_speech" android:layout_width="match_parent"
-            android:text="@string/system_speech" android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>
