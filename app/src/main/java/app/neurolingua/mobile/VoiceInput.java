@@ -22,19 +22,22 @@ final class VoiceInput {
     }
 
     private final Context context;
+    private final OfflineVoiceInput offline;
+    private boolean preferBundled;
     private final Handler main = new Handler(Looper.getMainLooper());
     private SpeechRecognizer active;
     private Runnable watchdog;
 
     VoiceInput(Context context) {
         this.context = context.getApplicationContext();
+        offline = new OfflineVoiceInput(context);
     }
 
     void start(boolean systemService, Events events) {
         cancel();
-        if (!systemService && (Build.VERSION.SDK_INT < 31
+        if (!systemService && (preferBundled || Build.VERSION.SDK_INT < 31
                 || !SpeechRecognizer.isOnDeviceRecognitionAvailable(context))) {
-            events.failed(R.string.no_local_speech, SpeechRecognizer.isRecognitionAvailable(context));
+            startBundled(events);
             return;
         }
         try {
@@ -56,12 +59,19 @@ final class VoiceInput {
             recognizer.startListening(request);
         } catch (SecurityException | UnsupportedOperationException e) {
             cancel();
-            events.failed(R.string.mic_unavailable, !systemService && SpeechRecognizer.isRecognitionAvailable(context));
+            if (systemService) events.failed(R.string.mic_unavailable, false);
+            else startBundled(events);
         }
     }
 
     void finish() {
         if (active != null) active.stopListening();
+        else offline.finish();
+    }
+
+    private void startBundled(Events events) {
+        preferBundled = true;
+        offline.start(events);
     }
 
     private void deadline(long millis, Runnable task) {
@@ -71,6 +81,7 @@ final class VoiceInput {
     }
 
     void cancel() {
+        offline.cancel();
         if (watchdog != null) main.removeCallbacks(watchdog);
         watchdog = null;
         SpeechRecognizer recognizer = active;
@@ -79,6 +90,11 @@ final class VoiceInput {
             recognizer.cancel();
             recognizer.destroy();
         }
+    }
+
+    void close() {
+        cancel();
+        offline.close();
     }
 
     private final class Turn implements RecognitionListener {
@@ -126,6 +142,10 @@ final class VoiceInput {
             cancel();
             Log.i("NeurolinguaSpeech", "Recognizer ended with code " + error);
             boolean silence = error == SpeechRecognizer.ERROR_NO_MATCH || error == SpeechRecognizer.ERROR_SPEECH_TIMEOUT;
+            if (!system && !silence && error != SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS) {
+                startBundled(events);
+                return;
+            }
             boolean missingLanguage = error == SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE
                     || error == SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED;
             int message = silence ? R.string.no_speech : missingLanguage ? R.string.no_english_model : R.string.mic_unavailable;

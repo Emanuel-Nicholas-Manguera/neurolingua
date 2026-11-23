@@ -321,7 +321,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onDestroy() {
         speaker.close();
-        microphone.cancel();
+        microphone.close();
         if (editor != null) editor.dismiss();
         store.close();
         super.onDestroy();

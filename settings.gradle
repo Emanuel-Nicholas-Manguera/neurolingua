@@ -11,6 +11,17 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        exclusiveContent {
+            forRepository {
+                ivy {
+                    name = 'VoskModels'
+                    url = uri('https://alphacephei.com/vosk/models/')
+                    patternLayout { artifact '[artifact]-[revision].[ext]' }
+                    metadataSources { artifact() }
+                }
+            }
+            filter { includeModule 'org.vosk.models', 'vosk-model-small-en-us' }
+        }
     }
 }
 
