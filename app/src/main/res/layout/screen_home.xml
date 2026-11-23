@@ -7,7 +7,7 @@
             android:gravity="center_vertical" android:orientation="horizontal">
             <include layout="@layout/brand"/>
             <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-            <Button android:id="@+id/help" style="@style/Control" android:text="@string/help"
+            <Button android:id="@+id/help" style="@style/Control.Navigation" android:text="@string/help"
                 android:drawableStart="@drawable/ic_help" android:drawablePadding="6dp"/>
         </LinearLayout>
 

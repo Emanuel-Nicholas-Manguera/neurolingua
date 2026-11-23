@@ -2,7 +2,8 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical" android:padding="24dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-            <Button style="@style/Control" android:id="@+id/home" android:text="@string/back_symbol" android:textSize="23sp"
+            <Button style="@style/Control.Navigation" android:id="@+id/home" android:text="@string/back_symbol" android:textSize="23sp"
+                android:layout_width="48dp" android:padding="0dp" android:gravity="center"
                 android:contentDescription="@string/back_home"/>
             <TextView style="@style/Label.Subhead" android:layout_marginStart="12dp" android:text="@string/assessment"/>
         </LinearLayout>

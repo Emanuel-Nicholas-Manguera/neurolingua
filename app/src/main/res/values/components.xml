@@ -24,6 +24,10 @@
         <item name="android:paddingLeft">16dp</item><item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">9dp</item><item name="android:paddingBottom">9dp</item>
     </style>
+    <style name="Control.Navigation">
+        <item name="android:background">@drawable/button_navigation</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
     <style name="Control.Primary"><item name="android:background">@drawable/button_primary</item><item name="android:textColor">@color/on_plum</item></style>
     <style name="Control.Hero"><item name="android:background">@drawable/button_cream</item><item name="android:textColor">@color/on_cream</item></style>
 </resources>
