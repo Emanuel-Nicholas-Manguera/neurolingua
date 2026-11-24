@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
+import android.view.ContextThemeWrapper;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -59,5 +62,62 @@ public class AppearanceModeTest {
                 assertEquals(expectedNight == Configuration.UI_MODE_NIGHT_YES ? 0xFF132F3C : 0xFFE6F3F5, background);
             });
         }
+    }
+
+    @Test public void settingsKeepsEachModeAndPaletteIndependent() {
+        ColorTheme previous = ColorTheme.VIOLET;
+        previous.save(app);
+        AppearanceMode.SYSTEM.save(app);
+        try (ActivityScenario<MainActivity> screen = ActivityScenario.launch(MainActivity.class)) {
+            screen.onActivity(activity -> activity.findViewById(R.id.settings).performClick());
+            for (AppearanceMode mode : AppearanceMode.values()) {
+                tap(screen, mode.optionId);
+                assertSelection(screen, mode, previous);
+                for (ColorTheme palette : ColorTheme.values()) {
+                    tap(screen, palette.optionId);
+                    assertSelection(screen, mode, palette);
+                    previous = palette;
+                }
+            }
+            tap(screen, R.id.mode_light);
+            tap(screen, R.id.theme_amber);
+            screen.recreate();
+            assertSelection(screen, AppearanceMode.LIGHT, ColorTheme.AMBER);
+        }
+        try (ActivityScenario<MainActivity> screen = ActivityScenario.launch(MainActivity.class)) {
+            screen.onActivity(activity -> activity.findViewById(R.id.settings).performClick());
+            assertSelection(screen, AppearanceMode.LIGHT, ColorTheme.AMBER);
+        }
+    }
+
+    private static void tap(ActivityScenario<MainActivity> screen, int option) {
+        screen.onActivity(activity -> activity.findViewById(option).performClick());
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+    }
+
+    private void assertSelection(ActivityScenario<MainActivity> screen, AppearanceMode mode, ColorTheme palette) {
+        screen.onActivity(activity -> {
+            RadioGroup modes = activity.findViewById(R.id.appearance_options);
+            RadioGroup colors = activity.findViewById(R.id.theme_options);
+            assertEquals(mode.optionId, modes.getCheckedRadioButtonId());
+            assertEquals(palette.optionId, colors.getCheckedRadioButtonId());
+            assertEquals(mode, AppearanceMode.selected(activity));
+            assertEquals(palette, ColorTheme.selected(activity));
+
+            Configuration expected = new Configuration();
+            expected.uiMode = switch (mode) {
+                case LIGHT -> Configuration.UI_MODE_NIGHT_NO;
+                case DARK -> Configuration.UI_MODE_NIGHT_YES;
+                case SYSTEM -> app.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            };
+            assertEquals(expected.uiMode,
+                    activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
+            Context reference = new ContextThemeWrapper(app.createConfigurationContext(expected), palette.style);
+            ViewGroup content = activity.findViewById(android.R.id.content);
+            assertEquals(ThemeColors.get(reference, R.attr.paletteSurface),
+                    ((ColorDrawable) content.getChildAt(0).getBackground()).getColor());
+            RadioButton checked = modes.findViewById(mode.optionId);
+            assertEquals(ThemeColors.get(reference, R.attr.paletteOnAccent), checked.getCurrentTextColor());
+        });
     }
 }
