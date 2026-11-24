@@ -1,0 +1,9 @@
+<resources>
+    <string name="settings">Settings</string>
+    <string name="color_theme">Color theme</string>
+    <string name="theme_description">Choose a palette for the app and Maria’s spiral.</string>
+    <string name="system_appearance_hint">Light and Dark mode follow your phone’s appearance.</string>
+    <string name="theme_violet">Violet</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_rose">Rose</string>
+</resources>

@@ -7,6 +7,7 @@ import android.graphics.Insets;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
@@ -33,6 +36,7 @@ public final class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(ColorTheme.selected(this).style);
         super.onCreate(savedInstanceState);
         root = new FrameLayout(this);
         root.setBackgroundColor(ThemeColors.get(this, R.attr.paletteSurface));
@@ -55,7 +59,9 @@ public final class MainActivity extends Activity {
             sessionId = savedInstanceState.getLong("sessionId");
             page = savedInstanceState.getString("page", "home");
         }
-        if (!"home".equals(page) && store.get(sessionId) != null) {
+        if ("settings".equals(page)) {
+            showSettings();
+        } else if (!"home".equals(page) && store.get(sessionId) != null) {
             showExam();
             if (savedInstanceState != null && savedInstanceState.containsKey("editing")
                     && "exam".equals(page)) {
@@ -86,6 +92,7 @@ public final class MainActivity extends Activity {
         screen("home", R.layout.screen_home);
         findViewById(R.id.assessment_card).setClipToOutline(true);
         findViewById(R.id.help).setOnClickListener(v -> openHelp());
+        findViewById(R.id.settings).setOnClickListener(v -> showSettings());
         boolean resume = store.latestId(AssessmentStore.ACTIVE) != 0;
         Button start = findViewById(R.id.start_test);
         start.setText(resume ? R.string.resume : R.string.start);
@@ -110,6 +117,31 @@ public final class MainActivity extends Activity {
             ((TextView) findViewById(R.id.last_score)).setText(getString(R.string.score_fraction, last.score(), last.items().size()));
             record.setContentDescription(getString(R.string.score_summary, last.displayDate(), last.score(), last.items().size()));
             record.setOnClickListener(v -> openRecord(scored));
+        }
+    }
+
+    private void showSettings() {
+        screen("settings", R.layout.screen_settings);
+        findViewById(R.id.home).setOnClickListener(v -> showHome());
+        RadioGroup choices = findViewById(R.id.theme_options);
+        choices.check(ColorTheme.selected(this).optionId);
+        int size = Math.round(30 * getResources().getDisplayMetrics().density);
+        for (ColorTheme theme : ColorTheme.values()) {
+            RadioButton option = choices.findViewById(theme.optionId);
+            Context palette = new ContextThemeWrapper(this, theme.style);
+            GradientDrawable swatch = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{
+                    ThemeColors.get(palette, R.attr.spiralFirst), ThemeColors.get(palette, R.attr.spiralSecondLight),
+                    ThemeColors.get(palette, R.attr.spiralThird)});
+            swatch.setShape(GradientDrawable.OVAL);
+            swatch.setSize(size, size);
+            option.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    swatch, null, option.getCompoundDrawablesRelative()[2], null);
+            option.setOnClickListener(v -> {
+                if (ColorTheme.selected(this) != theme) {
+                    theme.save(this);
+                    recreate();
+                }
+            });
         }
     }
 
