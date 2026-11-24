@@ -17,8 +17,9 @@
         <TextView style="@style/Label.Heading" android:id="@+id/prompt" android:layout_width="match_parent"
             android:layout_marginTop="26dp" android:gravity="center" android:textSize="34sp"/>
         <Space android:layout_width="1dp" android:layout_height="18dp" android:layout_weight="1"/>
-        <View android:layout_width="112dp" android:layout_height="112dp" android:layout_gravity="center_horizontal"
-            android:importantForAccessibility="no" android:background="@drawable/orb"/>
+        <app.neurolingua.mobile.ExamSpiralView android:id="@+id/exam_spiral"
+            android:layout_width="match_parent" android:layout_height="248dp"
+            android:importantForAccessibility="no"/>
         <TextView style="@style/Label.Subhead" android:id="@+id/turn_status" android:layout_width="match_parent"
             android:accessibilityLiveRegion="polite" android:gravity="center" android:layout_marginTop="17dp"/>
         <TextView style="@style/Label.Muted" android:id="@+id/turn_hint" android:layout_width="match_parent"

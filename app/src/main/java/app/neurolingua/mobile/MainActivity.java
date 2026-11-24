@@ -155,7 +155,7 @@ public final class MainActivity extends Activity {
             findViewById(R.id.home).setOnClickListener(v -> showHome());
             return;
         }
-        screen("exam", R.layout.screen_exam);
+        if (root.findViewById(R.id.exam_spiral) == null) screen("exam", R.layout.screen_exam);
         findViewById(R.id.home).setOnClickListener(v -> showHome());
         showProgress(item.position() + 1, session.items().size());
         TextView prompt = findViewById(R.id.prompt);
@@ -167,6 +167,7 @@ public final class MainActivity extends Activity {
         TextView number = findViewById(R.id.question_number);
         number.setText(getString(R.string.progress_text, currentQuestion, questionCount));
         LinearLayout track = findViewById(R.id.progress);
+        track.removeAllViews();
         int gap = Math.round(5 * getResources().getDisplayMetrics().density);
         for (int i = 0; i < questionCount; i++) {
             GradientDrawable fill = new GradientDrawable();
@@ -191,9 +192,9 @@ public final class MainActivity extends Activity {
         status.setText(review ? R.string.captured : R.string.ready);
         hint.setText(review ? R.string.check_typed : R.string.type_hint);
         secondary.setVisibility(review ? View.VISIBLE : View.GONE);
+        transcript.setVisibility(review ? View.VISIBLE : View.GONE);
+        transcript.setText(item.answer());
         if (review) {
-            transcript.setVisibility(View.VISIBLE);
-            transcript.setText(item.answer());
             secondary.setText(R.string.edit_answer);
             secondary.setOnClickListener(v -> editAnswer(item, item.answer()));
             boolean last = item.position() + 1 == session.items().size();

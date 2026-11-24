@@ -13,6 +13,13 @@
     <color name="hero_end">#704998</color>
     <color name="control_highlight">#26684299</color>
     <color name="primary_highlight">#33F8F0FF</color>
+    <color name="spiral_violet">#6835A7</color>
+    <color name="spiral_violet_light">#AA82DC</color>
+    <color name="spiral_rose">#883E92</color>
+    <color name="spiral_rose_light">#CC86BB</color>
+    <color name="spiral_iris">#5233A8</color>
+    <color name="spiral_iris_light">#A288DF</color>
+    <color name="spiral_reflection">#8864CC</color>
     <color name="legacy_navigation_bar">@color/ink</color>
     <bool name="light_system_bars">true</bool>
 
