@@ -73,7 +73,7 @@ public class AppearanceModeTest {
             for (AppearanceMode mode : AppearanceMode.values()) {
                 tap(screen, mode.optionId);
                 assertSelection(screen, mode, previous);
-                for (ColorTheme palette : ColorTheme.values()) {
+                for (ColorTheme palette : ColorTheme.presets()) {
                     tap(screen, palette.optionId);
                     assertSelection(screen, mode, palette);
                     previous = palette;

@@ -77,7 +77,7 @@ final class DetailSheet {
         button.setMinHeight(dp(48));
         button.setStateListAnimator(null);
         button.setPadding(dp(14), dp(8), dp(14), dp(8));
-        button.setBackgroundResource(primary ? R.drawable.button_primary : R.drawable.button_outline);
+        button.setBackground(ThemeColors.background(activity, primary ? R.drawable.button_primary : R.drawable.button_outline));
         return button;
     }
 

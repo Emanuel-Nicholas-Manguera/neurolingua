@@ -74,7 +74,7 @@ public class ThemeSettingsTest {
                 config.uiMode = (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK) | mode;
                 Context device = app.createConfigurationContext(config);
                 Bitmap[] exams = new Bitmap[ColorTheme.values().length];
-                for (ColorTheme palette : ColorTheme.values()) {
+                for (ColorTheme palette : ColorTheme.presets()) {
                     Context themed = new ContextThemeWrapper(device, palette.style);
                     Bitmap exam = spiralFrame(themed, R.layout.screen_exam, R.id.exam_spiral);
                     Bitmap preview = spiralFrame(themed, R.layout.screen_settings, R.id.theme_spiral);

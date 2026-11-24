@@ -30,7 +30,7 @@ final class MariaSheet {
         }
         exchange = sheet.text("", 16, R.attr.paletteText);
         exchange.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
-        exchange.setBackgroundResource(R.drawable.surface_lilac);
+        exchange.setBackground(ThemeColors.background(activity, R.drawable.surface_lilac));
         int pad = sheet.dp(13);
         exchange.setPadding(pad, pad, pad, pad);
         exchange.setVisibility(View.GONE);
@@ -39,6 +39,7 @@ final class MariaSheet {
         LinearLayout compose = new LinearLayout(activity);
         compose.setGravity(android.view.Gravity.CENTER_VERTICAL);
         input = new EditText(activity);
+        ThemeColors.styleInput(input);
         input.setHint(R.string.ask_hint);
         input.setTextSize(16);
         input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(300)});

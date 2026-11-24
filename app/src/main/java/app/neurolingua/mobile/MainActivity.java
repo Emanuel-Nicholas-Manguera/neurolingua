@@ -3,6 +3,7 @@ package app.neurolingua.mobile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Insets;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -33,6 +34,7 @@ public final class MainActivity extends Activity {
     private DetailSheet detail;
     private MariaSheet maria;
     private long detailId;
+    CustomThemeUi customUi;
 
     @Override protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -41,8 +43,15 @@ public final class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(ColorTheme.selected(this).style);
+        ColorTheme selected = ColorTheme.selected(this);
+        setTheme(selected.style);
+        if (selected == ColorTheme.CUSTOM) {
+            boolean dark = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                    == Configuration.UI_MODE_NIGHT_YES;
+            customUi = new CustomThemeUi(this, new CustomPalette(ColorTheme.customColor(this), dark));
+        }
         super.onCreate(savedInstanceState);
+        if (customUi != null) customUi.window(getWindow());
         root = new FrameLayout(this);
         root.setBackgroundColor(ThemeColors.get(this, R.attr.paletteSurface));
         if (Build.VERSION.SDK_INT >= 30) {
@@ -91,6 +100,7 @@ public final class MainActivity extends Activity {
         page = name;
         root.removeAllViews();
         getLayoutInflater().inflate(layout, root, true);
+        if (customUi != null) customUi.apply(root.getChildAt(0));
     }
 
     private void showHome() {
@@ -142,7 +152,7 @@ public final class MainActivity extends Activity {
         RadioGroup choices = findViewById(R.id.theme_options);
         choices.check(ColorTheme.selected(this).optionId);
         int size = Math.round(30 * getResources().getDisplayMetrics().density);
-        for (ColorTheme theme : ColorTheme.values()) {
+        for (ColorTheme theme : ColorTheme.presets()) {
             RadioButton option = choices.findViewById(theme.optionId);
             Context palette = new ContextThemeWrapper(this, theme.style);
             GradientDrawable swatch = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{
@@ -262,6 +272,7 @@ public final class MainActivity extends Activity {
         int margin = Math.round(24 * getResources().getDisplayMetrics().density);
         fields.setPadding(margin, margin / 2, margin, 0);
         answerInput = new EditText(this);
+        ThemeColors.styleInput(answerInput);
         answerInput.setHint(R.string.answer_hint);
         answerInput.setSingleLine(true);
         answerInput.setText(initial);
@@ -271,6 +282,7 @@ public final class MainActivity extends Activity {
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(R.string.review_answer, null).create();
         editor.setOnShowListener(dialog -> {
+            if (customUi != null) customUi.dialog(editor, fields);
             editor.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
                 String text = answerInput.getText().toString().trim();
                 if (text.isEmpty()) {
