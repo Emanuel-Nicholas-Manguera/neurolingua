@@ -32,6 +32,15 @@
         <item name="android:minHeight">48dp</item>
     </style>
     <style name="Control.Primary"><item name="android:tag">primary</item><item name="android:background">@drawable/button_primary</item><item name="android:textColor">?attr/paletteOnAccent</item></style>
+    <style name="Control.ChatSuggestion">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:drawableEnd">@drawable/ic_arrow_right</item>
+        <item name="android:drawableTint">?attr/paletteAccent</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
     <style name="Control.Hero"><item name="android:tag">heroAction</item><item name="android:background">@drawable/button_cream</item><item name="android:textColor">?attr/paletteHeroButtonText</item></style>
     <style name="ModeOption">
         <item name="android:tag">mode</item>

@@ -64,7 +64,7 @@ final class CustomThemeUi {
             // The hero vector already supplies the translucent line opacity.
             int tint = switch (role) {
                 case "heroLines" -> colors.get(R.attr.paletteHeroLines) | 0xFF000000;
-                case "assistant" -> colors.get(R.attr.paletteOnAccent);
+                case "accentCircle" -> colors.get(R.attr.paletteOnAccent);
                 default -> colors.get(R.attr.paletteAccent);
             };
             image.setImageTintList(ColorStateList.valueOf(tint));
@@ -73,7 +73,8 @@ final class CustomThemeUi {
             case "outline" -> view.setBackground(background(R.drawable.button_outline));
             case "navigation" -> view.setBackground(background(R.drawable.button_navigation));
             case "primary" -> view.setBackground(background(R.drawable.button_primary));
-            case "assistant" -> view.setBackground(background(R.drawable.assistant_button));
+            case "accentCircle" -> view.setBackground(background(R.drawable.assistant_button));
+            case "composer" -> view.setBackground(background(R.drawable.chat_composer));
             case "heroAction" -> view.setBackground(background(R.drawable.button_cream));
             case "variant" -> view.setBackground(background(R.drawable.surface_lilac));
             case "hero" -> view.setBackground(background(R.drawable.hero));
