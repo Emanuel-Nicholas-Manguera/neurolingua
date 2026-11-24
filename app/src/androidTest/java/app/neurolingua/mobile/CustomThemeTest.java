@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.inspector.WindowInspector;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
@@ -124,6 +125,34 @@ public class CustomThemeTest {
                 assertEquals(0xFF18B8AA, ColorTheme.customColor(activity));
                 assertEquals(AppearanceMode.LIGHT, AppearanceMode.selected(activity));
             });
+        }
+    }
+
+    @Test public void assistantStaysBelowHomeContentWithAThemedIconInEitherMode() {
+        int coral = 0xFFF06452;
+        ColorTheme.useCustom(app, coral);
+        for (AppearanceMode mode : new AppearanceMode[]{AppearanceMode.LIGHT, AppearanceMode.DARK}) {
+            mode.save(app);
+            try (ActivityScenario<MainActivity> screen = ActivityScenario.launch(MainActivity.class)) {
+                InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+                screen.onActivity(activity -> {
+                    ImageButton assistant = activity.findViewById(R.id.help);
+                    ViewGroup home = (ViewGroup) assistant.getParent();
+                    View scroll = activity.findViewById(R.id.home_scroll);
+                    float density = activity.getResources().getDisplayMetrics().density;
+                    assertEquals(Math.round(56 * density), assistant.getWidth());
+                    assertEquals(assistant.getWidth(), assistant.getHeight());
+                    int endMargin = home.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL
+                            ? assistant.getLeft() : home.getWidth() - assistant.getRight();
+                    assertEquals(Math.round(20 * density), endMargin);
+                    assertEquals(Math.round(16 * density), home.getHeight() - assistant.getBottom());
+                    assertTrue(scroll.getBottom() <= assistant.getTop());
+                    assertEquals("Ask Maria", assistant.getContentDescription().toString());
+                    assertEquals(assistant.getContentDescription(), assistant.getTooltipText());
+                    CustomPalette palette = new CustomPalette(coral, mode == AppearanceMode.DARK);
+                    assertEquals(palette.get(R.attr.paletteOnAccent), assistant.getImageTintList().getDefaultColor());
+                });
+            }
         }
     }
 
