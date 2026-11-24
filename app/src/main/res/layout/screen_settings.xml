@@ -32,6 +32,9 @@
             <RadioButton android:id="@+id/theme_violet" style="@style/ThemeOption" android:text="@string/theme_violet"/>
             <RadioButton android:id="@+id/theme_ocean" style="@style/ThemeOption" android:text="@string/theme_ocean"/>
             <RadioButton android:id="@+id/theme_rose" style="@style/ThemeOption" android:text="@string/theme_rose"/>
+            <RadioButton android:id="@+id/theme_forest" style="@style/ThemeOption" android:text="@string/theme_forest"/>
+            <RadioButton android:id="@+id/theme_amber" style="@style/ThemeOption" android:text="@string/theme_amber"/>
+            <RadioButton android:id="@+id/theme_slate" style="@style/ThemeOption" android:text="@string/theme_slate"/>
         </RadioGroup>
     </LinearLayout>
 </ScrollView>

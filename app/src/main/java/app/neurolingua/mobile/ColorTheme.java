@@ -5,7 +5,10 @@ import android.content.Context;
 enum ColorTheme {
     VIOLET("violet", R.style.AppTheme, R.id.theme_violet),
     OCEAN("ocean", R.style.OceanTheme, R.id.theme_ocean),
-    ROSE("rose", R.style.RoseTheme, R.id.theme_rose);
+    ROSE("rose", R.style.RoseTheme, R.id.theme_rose),
+    FOREST("forest", R.style.ForestTheme, R.id.theme_forest),
+    AMBER("amber", R.style.AmberTheme, R.id.theme_amber),
+    SLATE("slate", R.style.SlateTheme, R.id.theme_slate);
 
     private static final String KEY = "color_theme";
     private final String key;

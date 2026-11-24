@@ -50,4 +50,82 @@
         <item name="spiralThirdLight">#EFB4DB</item>
         <item name="spiralReflection">#D36E93</item>
     </style>
+
+    <style name="ForestTheme" parent="AppTheme">
+        <item name="paletteSurface">#1D3026</item>
+        <item name="paletteText">#EBF6E8</item>
+        <item name="paletteMuted">#BCCFB9</item>
+        <item name="paletteAccent">#A6D8A0</item>
+        <item name="paletteOnAccent">#203A29</item>
+        <item name="paletteSurfaceVariant">#2D4936</item>
+        <item name="paletteOutline">#607C64</item>
+        <item name="paletteHeroText">#F1F9EC</item>
+        <item name="paletteHeroButtonText">#2A4C33</item>
+        <item name="paletteHeroStart">#2A5137</item>
+        <item name="paletteHeroEnd">#456F49</item>
+        <item name="paletteControlRipple">#33A6D8A0</item>
+        <item name="palettePrimaryRipple">#26203A29</item>
+        <item name="paletteLegacyNavigation">?attr/paletteSurface</item>
+        <item name="paletteHeroLines">#58C8E7BA</item>
+        <item name="paletteHeroRipple">#26366541</item>
+        <item name="spiralFirst">#478753</item>
+        <item name="spiralFirstLight">#B9EAA6</item>
+        <item name="spiralSecond">#77A04B</item>
+        <item name="spiralSecondLight">#E0EDAB</item>
+        <item name="spiralThird">#398566</item>
+        <item name="spiralThirdLight">#9DE4BD</item>
+        <item name="spiralReflection">#7ABC8A</item>
+    </style>
+
+    <style name="AmberTheme" parent="AppTheme">
+        <item name="paletteSurface">#372A1D</item>
+        <item name="paletteText">#FFF3D9</item>
+        <item name="paletteMuted">#D9C7A7</item>
+        <item name="paletteAccent">#F0C177</item>
+        <item name="paletteOnAccent">#40301A</item>
+        <item name="paletteSurfaceVariant">#4E3A25</item>
+        <item name="paletteOutline">#897454</item>
+        <item name="paletteHeroText">#FFF6E5</item>
+        <item name="paletteHeroButtonText">#543816</item>
+        <item name="paletteHeroStart">#5F4526</item>
+        <item name="paletteHeroEnd">#895F2D</item>
+        <item name="paletteControlRipple">#33F0C177</item>
+        <item name="palettePrimaryRipple">#2640301A</item>
+        <item name="paletteLegacyNavigation">?attr/paletteSurface</item>
+        <item name="paletteHeroLines">#59FFE0A6</item>
+        <item name="paletteHeroRipple">#26855615</item>
+        <item name="spiralFirst">#BA842F</item>
+        <item name="spiralFirstLight">#FFE0A0</item>
+        <item name="spiralSecond">#BE7042</item>
+        <item name="spiralSecondLight">#FFC39A</item>
+        <item name="spiralThird">#A38D38</item>
+        <item name="spiralThirdLight">#F6E395</item>
+        <item name="spiralReflection">#D9A44A</item>
+    </style>
+
+    <style name="SlateTheme" parent="AppTheme">
+        <item name="paletteSurface">#252C35</item>
+        <item name="paletteText">#EFF3F8</item>
+        <item name="paletteMuted">#C1CBD6</item>
+        <item name="paletteAccent">#BDCCDC</item>
+        <item name="paletteOnAccent">#293644</item>
+        <item name="paletteSurfaceVariant">#343F4C</item>
+        <item name="paletteOutline">#6F7E90</item>
+        <item name="paletteHeroText">#F4F7FA</item>
+        <item name="paletteHeroButtonText">#344255</item>
+        <item name="paletteHeroStart">#344554</item>
+        <item name="paletteHeroEnd">#586779</item>
+        <item name="paletteControlRipple">#33BDCCDC</item>
+        <item name="palettePrimaryRipple">#26293644</item>
+        <item name="paletteLegacyNavigation">?attr/paletteSurface</item>
+        <item name="paletteHeroLines">#57D4DFEB</item>
+        <item name="paletteHeroRipple">#264C5D76</item>
+        <item name="spiralFirst">#647A92</item>
+        <item name="spiralFirstLight">#CEDBEB</item>
+        <item name="spiralSecond">#777D8D</item>
+        <item name="spiralSecondLight">#E8E9F2</item>
+        <item name="spiralThird">#4F7283</item>
+        <item name="spiralThirdLight">#BCD7E0</item>
+        <item name="spiralReflection">#99ACBE</item>
+    </style>
 </resources>

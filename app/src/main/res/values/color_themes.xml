@@ -50,4 +50,82 @@
         <item name="spiralThirdLight">#C78FB1</item>
         <item name="spiralReflection">#C67397</item>
     </style>
+
+    <style name="ForestTheme" parent="AppTheme">
+        <item name="paletteSurface">#E9F3E7</item>
+        <item name="paletteText">#203522</item>
+        <item name="paletteMuted">#50654E</item>
+        <item name="paletteAccent">#366541</item>
+        <item name="paletteOnAccent">?attr/paletteHeroText</item>
+        <item name="paletteSurfaceVariant">#D8E9D5</item>
+        <item name="paletteOutline">#94AE94</item>
+        <item name="paletteHeroText">#F1F9EC</item>
+        <item name="paletteHeroButtonText">#2A4C33</item>
+        <item name="paletteHeroStart">#21472D</item>
+        <item name="paletteHeroEnd">#44704A</item>
+        <item name="paletteControlRipple">#26366541</item>
+        <item name="palettePrimaryRipple">#33F1F9EC</item>
+        <item name="paletteLegacyNavigation">?attr/paletteText</item>
+        <item name="paletteHeroLines">#58C8E7BA</item>
+        <item name="paletteHeroRipple">#26366541</item>
+        <item name="spiralFirst">#3A7848</item>
+        <item name="spiralFirstLight">#86B889</item>
+        <item name="spiralSecond">#658148</item>
+        <item name="spiralSecondLight">#B2C989</item>
+        <item name="spiralThird">#2B7359</item>
+        <item name="spiralThirdLight">#80B49B</item>
+        <item name="spiralReflection">#76A97D</item>
+    </style>
+
+    <style name="AmberTheme" parent="AppTheme">
+        <item name="paletteSurface">#FBF0DB</item>
+        <item name="paletteText">#3F2E19</item>
+        <item name="paletteMuted">#705B3B</item>
+        <item name="paletteAccent">#855615</item>
+        <item name="paletteOnAccent">?attr/paletteHeroText</item>
+        <item name="paletteSurfaceVariant">#F4E2BD</item>
+        <item name="paletteOutline">#BBA17B</item>
+        <item name="paletteHeroText">#FFF6E5</item>
+        <item name="paletteHeroButtonText">#543816</item>
+        <item name="paletteHeroStart">#634018</item>
+        <item name="paletteHeroEnd">#895C27</item>
+        <item name="paletteControlRipple">#26855615</item>
+        <item name="palettePrimaryRipple">#33FFF6E5</item>
+        <item name="paletteLegacyNavigation">?attr/paletteText</item>
+        <item name="paletteHeroLines">#59FFE0A6</item>
+        <item name="paletteHeroRipple">#26855615</item>
+        <item name="spiralFirst">#A06C22</item>
+        <item name="spiralFirstLight">#DBAB53</item>
+        <item name="spiralSecond">#B25F32</item>
+        <item name="spiralSecondLight">#E6A06C</item>
+        <item name="spiralThird">#88752E</item>
+        <item name="spiralThirdLight">#C6B157</item>
+        <item name="spiralReflection">#C3913A</item>
+    </style>
+
+    <style name="SlateTheme" parent="AppTheme">
+        <item name="paletteSurface">#EBEEF2</item>
+        <item name="paletteText">#2C3643</item>
+        <item name="paletteMuted">#526172</item>
+        <item name="paletteAccent">#4C5D76</item>
+        <item name="paletteOnAccent">?attr/paletteHeroText</item>
+        <item name="paletteSurfaceVariant">#DCE2E9</item>
+        <item name="paletteOutline">#9FACBA</item>
+        <item name="paletteHeroText">#F4F7FA</item>
+        <item name="paletteHeroButtonText">#344255</item>
+        <item name="paletteHeroStart">#394858</item>
+        <item name="paletteHeroEnd">#566477</item>
+        <item name="paletteControlRipple">#264C5D76</item>
+        <item name="palettePrimaryRipple">#33F4F7FA</item>
+        <item name="paletteLegacyNavigation">?attr/paletteText</item>
+        <item name="paletteHeroLines">#57D4DFEB</item>
+        <item name="paletteHeroRipple">#264C5D76</item>
+        <item name="spiralFirst">#52677F</item>
+        <item name="spiralFirstLight">#98ABBC</item>
+        <item name="spiralSecond">#626979</item>
+        <item name="spiralSecondLight">#B2B8C6</item>
+        <item name="spiralThird">#3D576C</item>
+        <item name="spiralThirdLight">#8FA9B8</item>
+        <item name="spiralReflection">#879AAA</item>
+    </style>
 </resources>

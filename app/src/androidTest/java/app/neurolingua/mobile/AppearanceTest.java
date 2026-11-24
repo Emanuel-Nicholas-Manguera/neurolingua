@@ -26,6 +26,18 @@ public class AppearanceTest {
         checkBothModes(R.style.RoseTheme, 0xFFFAEAF0, 0xFF3B2232);
     }
 
+    @Test public void forestUsesTheSelectedSurfaceAndReadableControls() {
+        checkBothModes(R.style.ForestTheme, 0xFFE9F3E7, 0xFF1D3026);
+    }
+
+    @Test public void amberUsesTheSelectedSurfaceAndReadableControls() {
+        checkBothModes(R.style.AmberTheme, 0xFFFBF0DB, 0xFF372A1D);
+    }
+
+    @Test public void slateUsesTheSelectedSurfaceAndReadableControls() {
+        checkBothModes(R.style.SlateTheme, 0xFFEBEEF2, 0xFF252C35);
+    }
+
     private static void checkBothModes(int style, int lightSurface, int darkSurface) {
         checkAppearance(style, Configuration.UI_MODE_NIGHT_NO, lightSurface);
         checkAppearance(style, Configuration.UI_MODE_NIGHT_YES, darkSurface);
