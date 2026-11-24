@@ -7,12 +7,14 @@
             android:gravity="center_vertical" android:orientation="horizontal">
             <include layout="@layout/brand" android:layout_width="0dp" android:layout_height="wrap_content"
                 android:layout_weight="1"/>
-            <Button android:id="@+id/help" style="@style/Control.Navigation" android:text="@string/help"
-                android:drawableStart="@drawable/ic_help" android:drawablePadding="6dp"/>
             <ImageButton android:id="@+id/settings" android:layout_width="48dp" android:layout_height="48dp"
-                android:layout_marginStart="8dp" android:background="@drawable/button_navigation"
+                android:background="@drawable/button_navigation"
                 android:src="@drawable/ic_settings" android:contentDescription="@string/settings"
                 android:tooltipText="@string/settings"/>
+            <ImageButton android:id="@+id/help" android:layout_width="48dp" android:layout_height="48dp"
+                android:layout_marginStart="8dp" android:background="@drawable/button_navigation"
+                android:src="@drawable/ic_help" android:contentDescription="@string/ask_maria"
+                android:tooltipText="@string/ask_maria"/>
         </LinearLayout>
 
         <TextView style="@style/Label.Kicker" android:layout_marginTop="26dp" android:text="@string/home"/>
