@@ -34,6 +34,11 @@ public final class MainActivity extends Activity {
     private MariaSheet maria;
     private long detailId;
 
+    @Override protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        AppearanceMode.selected(base).applyTo(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(ColorTheme.selected(this).style);

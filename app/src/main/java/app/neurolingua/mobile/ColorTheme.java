@@ -1,7 +1,6 @@
 package app.neurolingua.mobile;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 enum ColorTheme {
     VIOLET("violet", R.style.AppTheme, R.id.theme_violet),
@@ -20,7 +19,7 @@ enum ColorTheme {
     }
 
     static ColorTheme selected(Context context) {
-        String saved = preferences(context).getString(KEY, "");
+        String saved = AppearancePreferences.of(context).getString(KEY, "");
         for (ColorTheme theme : values()) {
             if (theme.key.equals(saved)) return theme;
         }
@@ -28,10 +27,6 @@ enum ColorTheme {
     }
 
     void save(Context context) {
-        preferences(context).edit().putString(KEY, key).apply();
-    }
-
-    private static SharedPreferences preferences(Context context) {
-        return context.getSharedPreferences("appearance", Context.MODE_PRIVATE);
+        AppearancePreferences.of(context).edit().putString(KEY, key).apply();
     }
 }
