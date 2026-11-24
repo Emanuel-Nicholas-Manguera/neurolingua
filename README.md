@@ -6,7 +6,7 @@ Neurolingua is an Android thesis app for developing a guided cognitive pre-scree
 
 1. Open **Start Test** on Home. Enter an answer, review the text, and move to the next question. Returning Home offers **Resume test** for an unfinished session.
 2. After **Finish test**, return Home and open **Review answers**. Mark each response using the reference for the date the test began. **Save score** becomes available when all three marks are present.
-3. Tap the last scored record to see its per-question marks. Tap the **assistant button at the bottom right of Home** to ask Maria for the last score, the missed questions, or the number of incorrect answers. A newer pending test is identified separately.
+3. Tap the last scored record to see its per-question marks. Open **Ask Maria** with the Earpiece button at the bottom right of Home. Tap a suggested question or type a message about your last score, missed questions or incorrect-answer count. Tap **Suggested questions** again for a follow-up. Maria also tells you if a newer test is waiting for review.
 4. Open the gear on Home. Under **Appearance**, choose **Follow system** (the default), **Light**, or **Dark**. Under **Color theme**, choose a preset or open **Custom color**. Adjust hue, saturation and brightness, or enter a six-digit hex color. The spiral previews your edits. Tap **Use color** to apply it across the app. Both appearances use your saved color, and switching to a preset keeps it available for later.
 
 ## Future AI and speech integration
