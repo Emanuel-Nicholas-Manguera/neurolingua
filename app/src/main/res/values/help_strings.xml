@@ -1,10 +1,15 @@
 <resources>
     <string name="ask_maria">Ask Maria</string>
-    <string name="help_intro">Ask about your saved test results.</string>
+    <string name="maria_greeting">Hi, I’m Maria.</string>
+    <string name="help_intro">Ask me about your last scored test.</string>
     <string name="ask_score">What was my last score?</string>
     <string name="ask_missed">Which questions did I miss?</string>
     <string name="ask_count">How many answers were wrong?</string>
-    <string name="ask_hint">Ask a question…</string>
-    <string name="send">Send</string>
-    <string name="exchange">%1$s\n\n%2$s</string>
+    <string name="suggested_questions">Suggested questions</string>
+    <string name="show_questions">Show suggested questions</string>
+    <string name="hide_questions">Hide suggested questions</string>
+    <string name="ask_hint">Message Maria…</string>
+    <string name="send">Send message</string>
+    <string name="you_said">You said, %1$s</string>
+    <string name="maria_replied">Maria replied, %1$s</string>
 </resources>

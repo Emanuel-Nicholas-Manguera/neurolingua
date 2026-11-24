@@ -32,7 +32,7 @@ public final class MainActivity extends Activity {
     private AlertDialog editor;
     private EditText answerInput;
     private DetailSheet detail;
-    private MariaSheet maria;
+    private MariaChat.Conversation conversation;
     private long detailId;
     CustomThemeUi customUi;
     private CustomColorDialog colorPicker;
@@ -74,7 +74,20 @@ public final class MainActivity extends Activity {
             sessionId = savedInstanceState.getLong("sessionId");
             page = savedInstanceState.getString("page", "home");
         }
-        if ("settings".equals(page)) {
+        conversation = (MariaChat.Conversation) getLastNonConfigurationInstance();
+        if (conversation == null) {
+            conversation = new MariaChat.Conversation(savedInstanceState == null ? null : savedInstanceState.getBundle("conversation"));
+        }
+        if (savedInstanceState != null && savedInstanceState.getBoolean("helpOpen")) {
+            // The previous Help sheet saved a single question and its unsent draft.
+            page = "maria";
+            String last = savedInstanceState.getString("lastQuestion", "");
+            if (!last.isEmpty()) conversation.ask(last, store);
+            conversation.draft = savedInstanceState.getString("helpDraft", "");
+        }
+        if ("maria".equals(page)) {
+            openHelp();
+        } else if ("settings".equals(page)) {
             showSettings();
             Bundle draft = savedInstanceState.getBundle("colorPicker");
             if (draft != null) openColorPicker(draft);
@@ -89,12 +102,6 @@ public final class MainActivity extends Activity {
             if (savedInstanceState != null) {
                 long recordId = savedInstanceState.getLong("detailId");
                 if (recordId != 0) openRecord(recordId);
-                else if (savedInstanceState.getBoolean("helpOpen")) {
-                    openHelp();
-                    String last = savedInstanceState.getString("lastQuestion", "");
-                    if (!last.isEmpty()) maria.ask(last);
-                    maria.input.setText(savedInstanceState.getString("helpDraft", ""));
-                }
             }
         }
     }
@@ -107,6 +114,9 @@ public final class MainActivity extends Activity {
     }
 
     private void showHome() {
+        if ("maria".equals(page)) {
+            getSystemService(InputMethodManager.class).hideSoftInputFromWindow(root.getWindowToken(), 0);
+        }
         screen("home", R.layout.screen_home);
         findViewById(R.id.assessment_card).setClipToOutline(true);
         findViewById(R.id.help).setOnClickListener(v -> openHelp());
@@ -218,8 +228,9 @@ public final class MainActivity extends Activity {
 
     private void openHelp() {
         detailId = 0;
-        maria = new MariaSheet(this, store);
-        showDetail(maria.sheet);
+        screen("maria", R.layout.screen_maria);
+        new MariaChat(this, store, conversation);
+        findViewById(R.id.home).setOnClickListener(v -> showHome());
     }
 
     private void showDetail(DetailSheet sheet) {
@@ -228,7 +239,6 @@ public final class MainActivity extends Activity {
             if (detail == sheet) {
                 detail = null;
                 detailId = 0;
-                maria = null;
             }
         });
         detail.show();
@@ -346,17 +356,17 @@ public final class MainActivity extends Activity {
         goBack();
     }
 
+    @Override public Object onRetainNonConfigurationInstance() {
+        return conversation;
+    }
+
     @Override protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
         state.putLong("sessionId", sessionId);
         state.putString("page", page);
         state.putLong("detailId", detailId);
         if (colorPicker != null && colorPicker.dialog.isShowing()) state.putBundle("colorPicker", colorPicker.state());
-        if (maria != null) {
-            state.putBoolean("helpOpen", true);
-            state.putString("helpDraft", maria.input.getText().toString());
-            state.putString("lastQuestion", maria.lastQuestion);
-        }
+        state.putBundle("conversation", conversation.savedState());
         if (editor != null && editor.isShowing()) state.putString("editing", answerInput.getText().toString());
     }
 

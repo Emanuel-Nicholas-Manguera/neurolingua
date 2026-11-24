@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-/** A scrollable bottom sheet shared by record details and app help. */
+/** A scrollable bottom sheet for assessment records. */
 final class DetailSheet {
     final Activity activity;
     final Dialog dialog;
