@@ -1,5 +1,4 @@
 <resources>
-    <string name="help">Help</string>
     <string name="ask_maria">Ask Maria</string>
     <string name="help_intro">Ask about your saved test results.</string>
     <string name="ask_score">What was my last score?</string>

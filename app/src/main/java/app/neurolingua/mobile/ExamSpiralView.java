@@ -29,6 +29,11 @@ public final class ExamSpiralView extends View {
         motion.sample(level, SystemClock.uptimeMillis());
     }
 
+    void preview(CustomPalette palette) {
+        renderer.setColors(palette::get);
+        invalidate();
+    }
+
     @Override protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (Build.VERSION.SDK_INT >= 33) {

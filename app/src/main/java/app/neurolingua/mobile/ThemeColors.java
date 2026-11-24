@@ -30,7 +30,7 @@ final class ThemeColors {
 
     static void styleInput(EditText input) {
         if (input.getContext() instanceof MainActivity activity && activity.customUi != null) {
-            activity.customUi.input(input);
+            CustomThemeUi.input(input, activity.customUi.colors);
         }
     }
 }

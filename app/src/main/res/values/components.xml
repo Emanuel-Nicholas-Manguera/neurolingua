@@ -67,4 +67,13 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:saveEnabled">false</item>
     </style>
+    <style name="ColorSlider" parent="@android:style/Widget.Material.SeekBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:minHeight">8dp</item>
+        <item name="android:maxHeight">8dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:splitTrack">false</item>
+    </style>
 </resources>

@@ -1,0 +1,51 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:defaultFocusHighlightEnabled="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:paddingTop="12dp" android:paddingBottom="4dp" android:focusableInTouchMode="true"
+        android:defaultFocusHighlightEnabled="false">
+        <LinearLayout android:id="@+id/color_preview_card" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:gravity="center_vertical" android:padding="8dp"
+            android:layout_marginBottom="12dp">
+            <app.neurolingua.mobile.ExamSpiralView android:id="@+id/custom_spiral"
+                android:layout_width="96dp" android:layout_height="88dp" android:importantForAccessibility="no"/>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingStart="0dp" android:paddingEnd="6dp">
+                <TextView android:id="@+id/color_hex_label" style="@style/Label.Muted"
+                    android:text="@string/hex_color" android:labelFor="@id/color_hex"/>
+                <EditText android:id="@+id/color_hex" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:minHeight="48dp" android:singleLine="true" android:selectAllOnFocus="true"
+                    android:fontFamily="monospace" android:textSize="17sp"
+                    android:inputType="textCapCharacters|textNoSuggestions" android:imeOptions="actionDone"
+                    android:importantForAutofill="no"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center_vertical" android:layout_marginTop="6dp">
+            <TextView style="@style/Label" android:layout_width="0dp" android:layout_weight="1"
+                android:text="@string/hue" android:labelFor="@id/hue_slider"/>
+            <TextView android:id="@+id/hue_value" style="@style/Label.Muted"
+                android:fontFamily="sans-serif-medium" android:importantForAccessibility="no"/>
+        </LinearLayout>
+        <SeekBar android:id="@+id/hue_slider" style="@style/ColorSlider"
+            android:max="359" android:contentDescription="@string/hue"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center_vertical" android:layout_marginTop="6dp">
+            <TextView style="@style/Label" android:layout_width="0dp" android:layout_weight="1"
+                android:text="@string/saturation" android:labelFor="@id/saturation_slider"/>
+            <TextView android:id="@+id/saturation_value" style="@style/Label.Muted"
+                android:fontFamily="sans-serif-medium" android:importantForAccessibility="no"/>
+        </LinearLayout>
+        <SeekBar android:id="@+id/saturation_slider" style="@style/ColorSlider"
+            android:max="100" android:contentDescription="@string/saturation"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center_vertical" android:layout_marginTop="6dp">
+            <TextView style="@style/Label" android:layout_width="0dp" android:layout_weight="1"
+                android:text="@string/brightness" android:labelFor="@id/brightness_slider"/>
+            <TextView android:id="@+id/brightness_value" style="@style/Label.Muted"
+                android:fontFamily="sans-serif-medium" android:importantForAccessibility="no"/>
+        </LinearLayout>
+        <SeekBar android:id="@+id/brightness_slider" style="@style/ColorSlider"
+            android:max="100" android:contentDescription="@string/brightness"/>
+    </LinearLayout>
+</ScrollView>

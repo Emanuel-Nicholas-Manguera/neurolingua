@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import java.util.function.IntUnaryOperator;
 
 /** Draws three folded ribbons around an open center in normalized coordinates. */
 final class SpiralRenderer {
@@ -11,9 +12,9 @@ final class SpiralRenderer {
     private static final int COLUMNS = SLICES + 1;
     private static final double[] RIBBON_OFFSETS = {-.041, .013, .039};
 
-    private final int[] shadows;
-    private final int[] highlights;
-    private final int reflection;
+    private final int[] shadows = new int[3];
+    private final int[] highlights = new int[3];
+    private int reflection;
     private final Bitmap white = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
     private final double[] angles = new double[COLUMNS];
     private final float[] unitX = new float[COLUMNS];
@@ -26,11 +27,7 @@ final class SpiralRenderer {
     private final int[] colors = new int[10 * COLUMNS];
 
     SpiralRenderer(Context context) {
-        shadows = new int[] {ThemeColors.get(context, R.attr.spiralFirst),
-                ThemeColors.get(context, R.attr.spiralSecond), ThemeColors.get(context, R.attr.spiralThird)};
-        highlights = new int[] {ThemeColors.get(context, R.attr.spiralFirstLight),
-                ThemeColors.get(context, R.attr.spiralSecondLight), ThemeColors.get(context, R.attr.spiralThirdLight)};
-        reflection = ThemeColors.get(context, R.attr.spiralReflection);
+        setColors(attribute -> ThemeColors.get(context, attribute));
         white.eraseColor(Color.WHITE);
         for (int column = 0; column <= SLICES; column++) {
             double angle = SpiralMotion.FULL_TURN * (column % SLICES) / SLICES;
@@ -38,6 +35,16 @@ final class SpiralRenderer {
             unitX[column] = (float) Math.cos(angle);
             unitY[column] = (float) Math.sin(angle);
         }
+    }
+
+    void setColors(IntUnaryOperator color) {
+        shadows[0] = color.applyAsInt(R.attr.spiralFirst);
+        shadows[1] = color.applyAsInt(R.attr.spiralSecond);
+        shadows[2] = color.applyAsInt(R.attr.spiralThird);
+        highlights[0] = color.applyAsInt(R.attr.spiralFirstLight);
+        highlights[1] = color.applyAsInt(R.attr.spiralSecondLight);
+        highlights[2] = color.applyAsInt(R.attr.spiralThirdLight);
+        reflection = color.applyAsInt(R.attr.spiralReflection);
     }
 
     void draw(Canvas canvas, int width, int height, double phase, double level) {

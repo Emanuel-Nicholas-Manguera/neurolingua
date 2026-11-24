@@ -61,8 +61,10 @@ final class CustomThemeUi {
             }
         }
         if (view instanceof ImageView image) {
-            image.setImageTintList(ColorStateList.valueOf(colors.get(
-                    "heroLines".equals(role) ? R.attr.paletteHeroLines : R.attr.paletteAccent)));
+            // The hero vector already supplies the translucent line opacity.
+            int tint = "heroLines".equals(role) ? colors.get(R.attr.paletteHeroLines) | 0xFF000000
+                    : colors.get(R.attr.paletteAccent);
+            image.setImageTintList(ColorStateList.valueOf(tint));
         }
         switch (role) {
             case "outline" -> view.setBackground(background(R.drawable.button_outline));
@@ -72,6 +74,11 @@ final class CustomThemeUi {
             case "variant" -> view.setBackground(background(R.drawable.surface_lilac));
             case "hero" -> view.setBackground(background(R.drawable.hero));
             case "divider" -> view.setBackgroundColor(colors.get(R.attr.paletteOutline));
+            case "recordRow" -> {
+                if (view.getBackground() instanceof RippleDrawable ripple) {
+                    ((RippleDrawable) ripple.mutate()).setColor(ColorStateList.valueOf(colors.get(R.attr.paletteControlRipple)));
+                }
+            }
             case "mode", "colorOption" -> {
                 boolean mode = "mode".equals(role);
                 StateListDrawable states = new StateListDrawable();
@@ -122,11 +129,17 @@ final class CustomThemeUi {
         return new ColorStateList(new int[][]{state, DEFAULT}, new int[]{colors.get(first), colors.get(fallback)});
     }
 
-    void input(EditText input) {
+    static void input(EditText input, CustomPalette colors) {
         input.setTextColor(colors.get(R.attr.paletteText));
         input.setHintTextColor(colors.get(R.attr.paletteMuted));
-        input.setBackgroundTintList(ColorStateList.valueOf(colors.get(R.attr.paletteAccent)));
+        int accent = colors.get(R.attr.paletteAccent);
+        input.setBackgroundTintList(ColorStateList.valueOf(accent));
         input.setHighlightColor(colors.get(R.attr.paletteControlRipple));
+        if (Build.VERSION.SDK_INT >= 29 && input.getTextCursorDrawable() != null) {
+            Drawable cursor = input.getTextCursorDrawable().mutate();
+            cursor.setTint(accent);
+            input.setTextCursorDrawable(cursor);
+        }
     }
 
     void dialog(AlertDialog dialog, View content) {
@@ -139,7 +152,9 @@ final class CustomThemeUi {
     private void tintDialogChrome(View view, View content) {
         if (view == content) return;
         if (view instanceof Button button) {
-            button.setTextColor(states(DISABLED, R.attr.paletteMuted, R.attr.paletteAccent));
+            int accent = colors.get(R.attr.paletteAccent);
+            button.setTextColor(new ColorStateList(new int[][]{DISABLED, DEFAULT},
+                    new int[]{(accent & 0x00FFFFFF) | 0x61000000, accent}));
         } else if (view instanceof TextView label) {
             label.setTextColor(colors.get(R.attr.paletteText));
         } else if (view instanceof ViewGroup group) {
