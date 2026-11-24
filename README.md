@@ -14,6 +14,7 @@ The app currently uses manual input and reviewer marks. Sessions and transcripts
 
 - [AssessmentStore](app/src/main/java/app/neurolingua/mobile/AssessmentStore.java) saves the prompt, reference answer, input source, transcript and reviewer mark for each item. A future transcription tool can supply an answer to the same draft-and-confirm flow.
 - [RecordAssistant](app/src/main/java/app/neurolingua/mobile/RecordAssistant.java) implements the local question-and-answer baseline used by Maria. The saved item marks supply the facts for the assistant. Training and model inference are separate work.
+- The [exam spiral](app/src/main/java/app/neurolingua/mobile/ExamSpiralView.java) turns continuously while the exam is visible. A future voice player can send its output loudness (0–1) to `R.id.exam_spiral` using `setVoiceLevel(float)` on the UI thread. Send zero when playback pauses or ends. If updates stop, the glow and ribbon width settle back to idle. Android's system animation setting can disable motion.
 
 ## Run on Android
 

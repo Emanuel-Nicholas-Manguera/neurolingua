@@ -7,7 +7,6 @@ import android.graphics.Color;
 
 /** Draws three folded ribbons around an open center in normalized coordinates. */
 final class SpiralRenderer {
-    static final double FULL_TURN = 2 * Math.PI;
     private static final int SLICES = 80;
     private static final int COLUMNS = SLICES + 1;
     private static final double[] RIBBON_OFFSETS = {-.041, .013, .039};
@@ -34,29 +33,31 @@ final class SpiralRenderer {
         reflection = context.getColor(R.color.spiral_reflection);
         white.eraseColor(Color.WHITE);
         for (int column = 0; column <= SLICES; column++) {
-            double angle = FULL_TURN * (column % SLICES) / SLICES;
+            double angle = SpiralMotion.FULL_TURN * (column % SLICES) / SLICES;
             angles[column] = angle;
             unitX[column] = (float) Math.cos(angle);
             unitY[column] = (float) Math.sin(angle);
         }
     }
 
-    void draw(Canvas canvas, int width, int height, double phase) {
+    void draw(Canvas canvas, int width, int height, double phase, double level) {
         float scale = Math.min(width, height) / 2f;
         int save = canvas.save();
         canvas.translate(width / 2f, height / 2f);
         canvas.scale(scale, scale);
-        canvas.translate((float) (.027 * Math.sin(phase)), (float) (.021 * Math.cos(phase)));
+        canvas.translate((float) (.027 * Math.sin(phase) + .009 * level * Math.cos(2 * phase)),
+                (float) (.021 * Math.cos(phase) - .027 * level));
 
-        double radius = .535 + .020 * Math.sin(phase);
+        double radius = .535 + .020 * Math.sin(phase) + .145 * level;
         double lowerAngle = 1.52 + .22 * Math.sin(phase);
         for (int column = 0; column < COLUMNS; column++) {
             double angle = angles[column];
-            double edge = radius + .040 * Math.sin(2 * angle - phase + .25)
-                    + .022 * Math.cos(3 * angle + phase - .9) + .009 * Math.sin(4 * angle - phase - .4);
+            double edge = radius + (.040 + .031 * level) * Math.sin(2 * angle - phase + .25)
+                    + (.022 + .039 * level) * Math.cos(3 * angle + phase - .9)
+                    + (.009 + .018 * level) * Math.sin(4 * angle - phase - .4);
             outline[column] = edge;
             double lower = .5 + .5 * Math.cos(angle - lowerAngle);
-            double light = lower * lower * lower;
+            double light = lower * lower * lower * (1 + 1.1 * level);
             vertex(0, column, .36 * edge, reflection, 0);
             vertex(1, column, .55 * edge, reflection, .025 * light);
             vertex(2, column, .70 * edge, reflection, .17 * light);
@@ -70,25 +71,26 @@ final class SpiralRenderer {
         }
         drawStrip(canvas, 9);
         for (int ribbon = 0; ribbon < RIBBON_OFFSETS.length; ribbon++) {
-            drawRibbon(canvas, phase, ribbon);
+            drawRibbon(canvas, phase, ribbon, level);
         }
         canvas.restoreToCount(save);
     }
 
-    private void drawRibbon(Canvas canvas, double phase, int ribbon) {
+    private void drawRibbon(Canvas canvas, double phase, int ribbon, double level) {
         double shift = phase + ribbon * 2.10;
         int shadow = shadows[ribbon];
         int highlight = highlights[ribbon];
         for (int column = 0; column < COLUMNS; column++) {
             double angle = angles[column];
             double outer = outline[column] + RIBBON_OFFSETS[ribbon]
-                    + .033 * Math.sin(2 * angle + shift) + .015 * Math.cos(3 * angle - shift);
+                    + (.033 + .032 * level) * Math.sin(2 * angle + shift)
+                    + (.015 + .014 * level) * Math.cos(3 * angle - shift);
             double roll = .5 + .5 * Math.sin(2 * angle - shift + .57);
-            double width = .017 + .060 * Math.pow(roll, 1.15);
+            double width = .017 + (.060 + .086 * level) * Math.pow(roll, 1.15);
             double inner = outer - width;
             double facing = .27 + .73 * (.5 + .5 * Math.cos(angle + shift - .2));
             double glint = .5 + .5 * Math.cos(2 * angle - shift - .4 * ribbon);
-            glint = glint * glint * glint;
+            glint = Math.min(1, glint * glint * glint + .22 * level * Math.max(0, unitY[column]));
             int satin = mix(shadow, highlight, .35 + .4 * glint);
             int body = mix(shadow, highlight, .16 + .4 * glint);
             int rim = mix(shadow, highlight, .50 + .35 * glint);
