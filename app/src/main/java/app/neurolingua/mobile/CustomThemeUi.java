@@ -62,14 +62,18 @@ final class CustomThemeUi {
         }
         if (view instanceof ImageView image) {
             // The hero vector already supplies the translucent line opacity.
-            int tint = "heroLines".equals(role) ? colors.get(R.attr.paletteHeroLines) | 0xFF000000
-                    : colors.get(R.attr.paletteAccent);
+            int tint = switch (role) {
+                case "heroLines" -> colors.get(R.attr.paletteHeroLines) | 0xFF000000;
+                case "assistant" -> colors.get(R.attr.paletteOnAccent);
+                default -> colors.get(R.attr.paletteAccent);
+            };
             image.setImageTintList(ColorStateList.valueOf(tint));
         }
         switch (role) {
             case "outline" -> view.setBackground(background(R.drawable.button_outline));
             case "navigation" -> view.setBackground(background(R.drawable.button_navigation));
             case "primary" -> view.setBackground(background(R.drawable.button_primary));
+            case "assistant" -> view.setBackground(background(R.drawable.assistant_button));
             case "heroAction" -> view.setBackground(background(R.drawable.button_cream));
             case "variant" -> view.setBackground(background(R.drawable.surface_lilac));
             case "hero" -> view.setBackground(background(R.drawable.hero));
@@ -95,7 +99,7 @@ final class CustomThemeUi {
     }
 
     Drawable background(int resource) {
-        if (resource == R.drawable.button_primary) {
+        if (resource == R.drawable.button_primary || resource == R.drawable.assistant_button) {
             return button(resource, R.attr.paletteAccent, R.attr.palettePrimaryRipple, 0, 0);
         }
         if (resource == R.drawable.button_cream) {

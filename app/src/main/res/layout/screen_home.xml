@@ -63,7 +63,8 @@
     </ScrollView>
     <ImageButton android:id="@+id/help" android:layout_width="56dp" android:layout_height="56dp"
         android:layout_gravity="end" android:layout_marginEnd="20dp" android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp" android:tag="navigation" android:background="@drawable/button_navigation"
+        android:layout_marginBottom="16dp" android:tag="assistant" android:background="@drawable/assistant_button"
+        android:elevation="2dp"
         android:src="@drawable/ic_help" android:scaleType="center" android:contentDescription="@string/ask_maria"
         android:tooltipText="@string/ask_maria"/>
 </LinearLayout>
