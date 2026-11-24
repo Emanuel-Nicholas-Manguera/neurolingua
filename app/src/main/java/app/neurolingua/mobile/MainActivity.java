@@ -35,6 +35,7 @@ public final class MainActivity extends Activity {
     private MariaSheet maria;
     private long detailId;
     CustomThemeUi customUi;
+    private CustomColorDialog colorPicker;
 
     @Override protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -75,6 +76,8 @@ public final class MainActivity extends Activity {
         }
         if ("settings".equals(page)) {
             showSettings();
+            Bundle draft = savedInstanceState.getBundle("colorPicker");
+            if (draft != null) openColorPicker(draft);
         } else if (!"home".equals(page) && store.get(sessionId) != null) {
             showExam();
             if (savedInstanceState != null && savedInstanceState.containsKey("editing")
@@ -152,6 +155,21 @@ public final class MainActivity extends Activity {
         RadioGroup choices = findViewById(R.id.theme_options);
         choices.check(ColorTheme.selected(this).optionId);
         int size = Math.round(30 * getResources().getDisplayMetrics().density);
+        RadioButton custom = choices.findViewById(R.id.theme_custom);
+        int seed = ColorTheme.customColor(this);
+        GradientDrawable chip = new GradientDrawable();
+        chip.setShape(GradientDrawable.OVAL);
+        chip.setSize(size, size);
+        chip.setColor(seed);
+        chip.setStroke(Math.round(getResources().getDisplayMetrics().density), ThemeColors.get(this, R.attr.paletteOutline));
+        custom.setCompoundDrawablesRelativeWithIntrinsicBounds(chip, null, custom.getCompoundDrawablesRelative()[2], null);
+        if (ColorTheme.selected(this) == ColorTheme.CUSTOM) {
+            custom.setText(getString(R.string.custom_color_value, CustomColorDialog.format(seed)));
+        }
+        custom.setOnClickListener(v -> {
+            choices.check(ColorTheme.selected(this).optionId);
+            openColorPicker(null);
+        });
         for (ColorTheme theme : ColorTheme.presets()) {
             RadioButton option = choices.findViewById(theme.optionId);
             Context palette = new ContextThemeWrapper(this, theme.style);
@@ -169,6 +187,17 @@ public final class MainActivity extends Activity {
                 }
             });
         }
+    }
+
+    private void openColorPicker(Bundle draft) {
+        colorPicker = new CustomColorDialog(this, draft, color -> {
+            if (ColorTheme.selected(this) != ColorTheme.CUSTOM || ColorTheme.customColor(this) != color) {
+                ColorTheme.useCustom(this, color);
+                recreate();
+            }
+        });
+        colorPicker.dialog.setOnDismissListener(dialog -> colorPicker = null);
+        colorPicker.show();
     }
 
     private void openRecord(long id) {
@@ -322,6 +351,7 @@ public final class MainActivity extends Activity {
         state.putLong("sessionId", sessionId);
         state.putString("page", page);
         state.putLong("detailId", detailId);
+        if (colorPicker != null && colorPicker.dialog.isShowing()) state.putBundle("colorPicker", colorPicker.state());
         if (maria != null) {
             state.putBoolean("helpOpen", true);
             state.putString("helpDraft", maria.input.getText().toString());
@@ -331,6 +361,7 @@ public final class MainActivity extends Activity {
     }
 
     @Override protected void onDestroy() {
+        if (colorPicker != null) colorPicker.dialog.dismiss();
         if (detail != null) detail.dialog.dismiss();
         if (editor != null) editor.dismiss();
         store.close();

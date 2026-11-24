@@ -29,6 +29,7 @@
             android:importantForAccessibility="no"/>
         <RadioGroup android:id="@+id/theme_options" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical">
+            <RadioButton android:id="@id/theme_custom" style="@style/ThemeOption" android:text="@string/custom_color"/>
             <RadioButton android:id="@+id/theme_violet" style="@style/ThemeOption" android:text="@string/theme_violet"/>
             <RadioButton android:id="@+id/theme_ocean" style="@style/ThemeOption" android:text="@string/theme_ocean"/>
             <RadioButton android:id="@+id/theme_rose" style="@style/ThemeOption" android:text="@string/theme_rose"/>
