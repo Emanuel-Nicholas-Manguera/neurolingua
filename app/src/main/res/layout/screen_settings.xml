@@ -10,10 +10,22 @@
                 android:textSize="23sp" android:contentDescription="@string/back_home"/>
             <TextView style="@style/Label.Subhead" android:layout_marginStart="12dp" android:text="@string/settings"/>
         </LinearLayout>
-        <TextView style="@style/Label.Heading" android:layout_marginTop="24dp" android:text="@string/color_theme"/>
+        <TextView style="@style/Label.Heading" android:layout_marginTop="24dp" android:text="@string/appearance"
+            android:labelFor="@id/appearance_options"/>
+        <RadioGroup android:id="@+id/appearance_options" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp">
+            <RadioButton android:id="@+id/mode_system" style="@style/ModeOption" android:layout_weight="1.5"
+                android:text="@string/mode_system"/>
+            <RadioButton android:id="@+id/mode_light" style="@style/ModeOption" android:layout_marginStart="6dp"
+                android:text="@string/mode_light"/>
+            <RadioButton android:id="@+id/mode_dark" style="@style/ModeOption" android:layout_marginStart="6dp"
+                android:text="@string/mode_dark"/>
+        </RadioGroup>
+        <TextView style="@style/Label.Subhead" android:layout_marginTop="24dp" android:text="@string/color_theme"
+            android:labelFor="@id/theme_options"/>
         <TextView style="@style/Label.Muted" android:layout_marginTop="6dp" android:text="@string/theme_description"/>
         <app.neurolingua.mobile.ExamSpiralView android:id="@+id/theme_spiral"
-            android:layout_width="match_parent" android:layout_height="192dp"
+            android:layout_width="match_parent" android:layout_height="146dp"
             android:importantForAccessibility="no"/>
         <RadioGroup android:id="@+id/theme_options" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical">
@@ -21,6 +33,5 @@
             <RadioButton android:id="@+id/theme_ocean" style="@style/ThemeOption" android:text="@string/theme_ocean"/>
             <RadioButton android:id="@+id/theme_rose" style="@style/ThemeOption" android:text="@string/theme_rose"/>
         </RadioGroup>
-        <TextView style="@style/Label.Muted" android:layout_marginTop="16dp" android:text="@string/system_appearance_hint"/>
     </LinearLayout>
 </ScrollView>

@@ -30,11 +30,26 @@
     </style>
     <style name="Control.Primary"><item name="android:background">@drawable/button_primary</item><item name="android:textColor">?attr/paletteOnAccent</item></style>
     <style name="Control.Hero"><item name="android:background">@drawable/button_cream</item><item name="android:textColor">?attr/paletteHeroButtonText</item></style>
+    <style name="ModeOption">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">6dp</item>
+        <item name="android:paddingVertical">6dp</item>
+        <item name="android:background">@drawable/mode_option</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/mode_option_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:saveEnabled">false</item>
+    </style>
     <style name="ThemeOption">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:minHeight">60dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:minHeight">56dp</item>
         <item name="android:background">@drawable/theme_option</item>
         <item name="android:button">@null</item>
         <item name="android:drawableEnd">?android:attr/listChoiceIndicatorSingle</item>

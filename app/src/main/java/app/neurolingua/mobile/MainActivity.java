@@ -128,6 +128,17 @@ public final class MainActivity extends Activity {
     private void showSettings() {
         screen("settings", R.layout.screen_settings);
         findViewById(R.id.home).setOnClickListener(v -> showHome());
+        RadioGroup modes = findViewById(R.id.appearance_options);
+        modes.check(AppearanceMode.selected(this).optionId);
+        for (AppearanceMode mode : AppearanceMode.values()) {
+            modes.findViewById(mode.optionId).setOnClickListener(v -> {
+                if (AppearanceMode.selected(this) != mode) {
+                    mode.save(this);
+                    recreate();
+                }
+            });
+        }
+
         RadioGroup choices = findViewById(R.id.theme_options);
         choices.check(ColorTheme.selected(this).optionId);
         int size = Math.round(30 * getResources().getDisplayMetrics().density);
