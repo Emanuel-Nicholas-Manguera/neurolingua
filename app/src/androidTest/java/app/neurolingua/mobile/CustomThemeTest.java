@@ -14,8 +14,10 @@ import android.view.inspector.WindowInspector;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.filters.SdkSuppress;
@@ -162,5 +164,29 @@ public class CustomThemeTest {
             if (root.findViewById(R.id.color_hex) != null) return root;
         }
         throw new AssertionError("Expected the custom color dialog");
+    }
+
+    @Test public void mariaChatUsesTheCustomPaletteForBothSpeakersInLightAndDark() {
+        int teal = 0xFF00887A;
+        ColorTheme.useCustom(app, teal);
+        for (AppearanceMode mode : new AppearanceMode[]{AppearanceMode.LIGHT, AppearanceMode.DARK}) {
+            mode.save(app);
+            CustomPalette palette = new CustomPalette(teal, mode == AppearanceMode.DARK);
+            try (ActivityScenario<MainActivity> screen = ActivityScenario.launch(MainActivity.class)) {
+                screen.onActivity(activity -> {
+                    activity.findViewById(R.id.help).performClick();
+                    activity.findViewById(R.id.suggest_score).performClick();
+                    LinearLayout messages = activity.findViewById(R.id.chat_messages);
+                    TextView user = (TextView) messages.getChildAt(0);
+                    TextView maria = (TextView) messages.getChildAt(1);
+                    assertEquals(palette.get(R.attr.paletteOnAccent), user.getCurrentTextColor());
+                    assertEquals(palette.get(R.attr.paletteAccent),
+                            ((GradientDrawable) user.getBackground()).getColor().getDefaultColor());
+                    assertEquals(palette.get(R.attr.paletteText), maria.getCurrentTextColor());
+                    assertEquals(palette.get(R.attr.paletteSurfaceVariant),
+                            ((GradientDrawable) maria.getBackground()).getColor().getDefaultColor());
+                });
+            }
+        }
     }
 }
