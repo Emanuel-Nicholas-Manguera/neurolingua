@@ -26,11 +26,11 @@ final class SpiralRenderer {
     private final int[] colors = new int[10 * COLUMNS];
 
     SpiralRenderer(Context context) {
-        shadows = new int[] {context.getColor(R.color.spiral_violet),
-                context.getColor(R.color.spiral_rose), context.getColor(R.color.spiral_iris)};
-        highlights = new int[] {context.getColor(R.color.spiral_violet_light),
-                context.getColor(R.color.spiral_rose_light), context.getColor(R.color.spiral_iris_light)};
-        reflection = context.getColor(R.color.spiral_reflection);
+        shadows = new int[] {ThemeColors.get(context, R.attr.spiralFirst),
+                ThemeColors.get(context, R.attr.spiralSecond), ThemeColors.get(context, R.attr.spiralThird)};
+        highlights = new int[] {ThemeColors.get(context, R.attr.spiralFirstLight),
+                ThemeColors.get(context, R.attr.spiralSecondLight), ThemeColors.get(context, R.attr.spiralThirdLight)};
+        reflection = ThemeColors.get(context, R.attr.spiralReflection);
         white.eraseColor(Color.WHITE);
         for (int column = 0; column <= SLICES; column++) {
             double angle = SpiralMotion.FULL_TURN * (column % SLICES) / SLICES;

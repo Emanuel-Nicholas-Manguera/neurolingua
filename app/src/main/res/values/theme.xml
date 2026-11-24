@@ -27,22 +27,45 @@
     <style name="PlatformTheme" parent="android:style/Theme.Material.Light.NoActionBar"/>
     <style name="PlatformAlertTheme" parent="android:style/Theme.Material.Light.Dialog.Alert"/>
     <style name="AnswerDialogTheme" parent="PlatformAlertTheme">
-        <item name="android:colorAccent">@color/plum</item>
-        <item name="android:colorBackgroundFloating">@color/paper</item>
-        <item name="android:textColorPrimary">@color/ink</item>
-        <item name="android:textColorSecondary">@color/muted</item>
+        <item name="android:colorAccent">?attr/paletteAccent</item>
+        <item name="android:colorBackgroundFloating">?attr/paletteSurface</item>
+        <item name="android:textColorPrimary">?attr/paletteText</item>
+        <item name="android:textColorSecondary">?attr/paletteMuted</item>
     </style>
     <style name="BaseAppTheme" parent="PlatformTheme">
+        <item name="paletteSurface">@color/paper</item>
+        <item name="paletteText">@color/ink</item>
+        <item name="paletteMuted">@color/muted</item>
+        <item name="paletteAccent">@color/plum</item>
+        <item name="paletteOnAccent">@color/on_plum</item>
+        <item name="paletteSurfaceVariant">@color/lilac</item>
+        <item name="paletteOutline">@color/line</item>
+        <item name="paletteHeroText">@color/cream</item>
+        <item name="paletteHeroButtonText">@color/on_cream</item>
+        <item name="paletteHeroStart">@color/hero_start</item>
+        <item name="paletteHeroEnd">@color/hero_end</item>
+        <item name="paletteControlRipple">@color/control_highlight</item>
+        <item name="palettePrimaryRipple">@color/primary_highlight</item>
+        <item name="paletteLegacyNavigation">@color/legacy_navigation_bar</item>
+        <item name="spiralFirst">@color/spiral_violet</item>
+        <item name="spiralFirstLight">@color/spiral_violet_light</item>
+        <item name="spiralSecond">@color/spiral_rose</item>
+        <item name="spiralSecondLight">@color/spiral_rose_light</item>
+        <item name="spiralThird">@color/spiral_iris</item>
+        <item name="spiralThirdLight">@color/spiral_iris_light</item>
+        <item name="spiralReflection">@color/spiral_reflection</item>
+        <item name="paletteHeroLines">#52DCC7FF</item>
+        <item name="paletteHeroRipple">#26684299</item>
         <item name="android:fontFamily">sans</item>
-        <item name="android:colorAccent">@color/plum</item>
+        <item name="android:colorAccent">?attr/paletteAccent</item>
         <item name="android:alertDialogTheme">@style/AnswerDialogTheme</item>
-        <item name="android:colorControlHighlight">@color/control_highlight</item>
-        <item name="android:windowBackground">@color/paper</item>
-        <item name="android:colorBackground">@color/paper</item>
-        <item name="android:textColorPrimary">@color/ink</item>
-        <item name="android:textColorSecondary">@color/muted</item>
+        <item name="android:colorControlHighlight">?attr/paletteControlRipple</item>
+        <item name="android:windowBackground">?attr/paletteSurface</item>
+        <item name="android:colorBackground">?attr/paletteSurface</item>
+        <item name="android:textColorPrimary">?attr/paletteText</item>
+        <item name="android:textColorSecondary">?attr/paletteMuted</item>
         <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
-        <item name="android:statusBarColor">@color/paper</item>
-        <item name="android:navigationBarColor">@color/legacy_navigation_bar</item>
+        <item name="android:statusBarColor">?attr/paletteSurface</item>
+        <item name="android:navigationBarColor">?attr/paletteLegacyNavigation</item>
     </style>
 </resources>

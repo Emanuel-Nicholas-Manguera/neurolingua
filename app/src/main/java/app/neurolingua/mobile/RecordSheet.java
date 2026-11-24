@@ -15,21 +15,21 @@ final class RecordSheet {
         String title = activity.getString(reviewing ? R.string.review_test : R.string.test_record);
         DetailSheet sheet = new DetailSheet(activity, title, session.displayDate());
         if (reviewing) {
-            sheet.add(sheet.text(activity.getString(R.string.mark_instructions), 16, R.color.ink), 12);
+            sheet.add(sheet.text(activity.getString(R.string.mark_instructions), 16, R.attr.paletteText), 12);
         } else {
             int possible = session.items().size();
             String result = activity.getResources().getQuantityString(R.plurals.points, possible, session.score(), possible);
-            sheet.add(sheet.text(result, 25, R.color.plum), 10);
+            sheet.add(sheet.text(result, 25, R.attr.paletteAccent), 10);
         }
         Button save = sheet.button(activity.getString(R.string.save_score), true);
         for (Assessment.Item item : session.items()) {
             sheet.divider();
-            TextView prompt = sheet.text(item.prompt(), 17, R.color.ink);
+            TextView prompt = sheet.text(item.prompt(), 17, R.attr.paletteText);
             prompt.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
             sheet.add(prompt, 10);
-            sheet.add(sheet.text(activity.getString(R.string.recorded_answer, item.answer()), 16, R.color.ink), 5);
+            sheet.add(sheet.text(activity.getString(R.string.recorded_answer, item.answer()), 16, R.attr.paletteText), 5);
             if (reviewing) {
-                sheet.add(sheet.text(activity.getString(R.string.reference_answer, item.reference()), 14, R.color.muted), 4);
+                sheet.add(sheet.text(activity.getString(R.string.reference_answer, item.reference()), 14, R.attr.paletteMuted), 4);
                 RadioGroup group = new RadioGroup(activity);
                 group.setOrientation(LinearLayout.HORIZONTAL);
                 RadioButton correct = option(sheet, group, R.string.correct);
@@ -42,7 +42,7 @@ final class RecordSheet {
                 sheet.add(group, 2);
             } else {
                 int outcome = item.mark() == 1 ? R.string.awarded : R.string.missed;
-                sheet.add(sheet.text(activity.getString(outcome), 15, R.color.plum), 3);
+                sheet.add(sheet.text(activity.getString(outcome), 15, R.attr.paletteAccent), 3);
             }
         }
         if (reviewing) {

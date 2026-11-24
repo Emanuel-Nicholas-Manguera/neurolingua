@@ -1,11 +1,11 @@
 <resources>
     <style name="Label" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/ink</item><item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/paletteText</item><item name="android:textSize">16sp</item>
     </style>
-    <style name="Label.Muted"><item name="android:textColor">@color/muted</item><item name="android:textSize">15sp</item></style>
+    <style name="Label.Muted"><item name="android:textColor">?attr/paletteMuted</item><item name="android:textSize">15sp</item></style>
     <style name="Label.Kicker">
-        <item name="android:textColor">@color/muted</item><item name="android:textSize">13sp</item>
+        <item name="android:textColor">?attr/paletteMuted</item><item name="android:textSize">13sp</item>
         <item name="android:letterSpacing">0.09</item><item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -17,7 +17,7 @@
     <style name="Control" parent="@android:style/Widget.Material.Button">
         <item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">50dp</item><item name="android:minWidth">48dp</item>
-        <item name="android:background">@drawable/button_outline</item><item name="android:textColor">@color/ink</item>
+        <item name="android:background">@drawable/button_outline</item><item name="android:textColor">?attr/paletteText</item>
         <item name="android:stateListAnimator">@null</item><item name="android:elevation">0dp</item>
         <item name="android:textSize">16sp</item><item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">sans-serif-medium</item><item name="android:letterSpacing">0</item>
@@ -28,6 +28,6 @@
         <item name="android:background">@drawable/button_navigation</item>
         <item name="android:minHeight">48dp</item>
     </style>
-    <style name="Control.Primary"><item name="android:background">@drawable/button_primary</item><item name="android:textColor">@color/on_plum</item></style>
-    <style name="Control.Hero"><item name="android:background">@drawable/button_cream</item><item name="android:textColor">@color/on_cream</item></style>
+    <style name="Control.Primary"><item name="android:background">@drawable/button_primary</item><item name="android:textColor">?attr/paletteOnAccent</item></style>
+    <style name="Control.Hero"><item name="android:background">@drawable/button_cream</item><item name="android:textColor">?attr/paletteHeroButtonText</item></style>
 </resources>

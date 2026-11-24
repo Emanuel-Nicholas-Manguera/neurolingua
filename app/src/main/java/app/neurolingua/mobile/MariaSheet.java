@@ -28,7 +28,7 @@ final class MariaSheet {
             suggestion.setOnClickListener(v -> ask(question));
             sheet.add(suggestion, 9);
         }
-        exchange = sheet.text("", 16, R.color.ink);
+        exchange = sheet.text("", 16, R.attr.paletteText);
         exchange.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
         exchange.setBackgroundResource(R.drawable.surface_lilac);
         int pad = sheet.dp(13);

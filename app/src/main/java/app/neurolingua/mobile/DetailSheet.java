@@ -27,7 +27,7 @@ final class DetailSheet {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         ScrollView scroll = new ScrollView(activity);
         GradientDrawable background = new GradientDrawable();
-        background.setColor(activity.getColor(R.color.paper));
+        background.setColor(ThemeColors.get(activity, R.attr.paletteSurface));
         int r = dp(24);
         background.setCornerRadii(new float[]{r, r, r, r, 0, 0, 0, 0});
         scroll.setBackground(background);
@@ -39,14 +39,14 @@ final class DetailSheet {
         dialog.setContentView(scroll);
         LinearLayout header = new LinearLayout(activity);
         header.setGravity(Gravity.CENTER_VERTICAL);
-        TextView title = text(heading, 27, R.color.ink);
+        TextView title = text(heading, 27, R.attr.paletteText);
         title.setTypeface(Typeface.SERIF);
         header.addView(title, new LinearLayout.LayoutParams(0, -2, 1));
         Button close = button(activity.getString(R.string.close), false);
         close.setOnClickListener(v -> dialog.dismiss());
         header.addView(close);
         add(header, 0);
-        add(text(subtitle, 15, R.color.muted), 6);
+        add(text(subtitle, 15, R.attr.paletteMuted), 6);
     }
 
     int dp(int value) {
@@ -59,11 +59,11 @@ final class DetailSheet {
         body.addView(child, layout);
     }
 
-    TextView text(String value, int size, int color) {
+    TextView text(String value, int size, int colorAttribute) {
         TextView label = new TextView(activity);
         label.setText(value);
         label.setTextSize(size);
-        label.setTextColor(activity.getColor(color));
+        label.setTextColor(ThemeColors.get(activity, colorAttribute));
         return label;
     }
 
@@ -73,7 +73,7 @@ final class DetailSheet {
         button.setAllCaps(false);
         button.setTextSize(16);
         button.setLetterSpacing(0);
-        button.setTextColor(activity.getColor(primary ? R.color.on_plum : R.color.plum));
+        button.setTextColor(ThemeColors.get(activity, primary ? R.attr.paletteOnAccent : R.attr.paletteAccent));
         button.setMinHeight(dp(48));
         button.setStateListAnimator(null);
         button.setPadding(dp(14), dp(8), dp(14), dp(8));
@@ -83,7 +83,7 @@ final class DetailSheet {
 
     void divider() {
         View rule = new View(activity);
-        rule.setBackgroundColor(activity.getColor(R.color.line));
+        rule.setBackgroundColor(ThemeColors.get(activity, R.attr.paletteOutline));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, dp(1));
         params.topMargin = dp(14);
         body.addView(rule, params);

@@ -1,0 +1,25 @@
+<resources>
+    <attr name="paletteSurface" format="color"/>
+    <attr name="paletteText" format="color"/>
+    <attr name="paletteMuted" format="color"/>
+    <attr name="paletteAccent" format="color"/>
+    <attr name="paletteOnAccent" format="color"/>
+    <attr name="paletteSurfaceVariant" format="color"/>
+    <attr name="paletteOutline" format="color"/>
+    <attr name="paletteHeroText" format="color"/>
+    <attr name="paletteHeroButtonText" format="color"/>
+    <attr name="paletteHeroStart" format="color"/>
+    <attr name="paletteHeroEnd" format="color"/>
+    <attr name="paletteControlRipple" format="color"/>
+    <attr name="palettePrimaryRipple" format="color"/>
+    <attr name="paletteLegacyNavigation" format="color"/>
+    <attr name="spiralFirst" format="color"/>
+    <attr name="spiralFirstLight" format="color"/>
+    <attr name="spiralSecond" format="color"/>
+    <attr name="spiralSecondLight" format="color"/>
+    <attr name="spiralThird" format="color"/>
+    <attr name="spiralThirdLight" format="color"/>
+    <attr name="spiralReflection" format="color"/>
+    <attr name="paletteHeroLines" format="color"/>
+    <attr name="paletteHeroRipple" format="color"/>
+</resources>

@@ -35,7 +35,7 @@ public final class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         root = new FrameLayout(this);
-        root.setBackgroundColor(getColor(R.color.paper));
+        root.setBackgroundColor(ThemeColors.get(this, R.attr.paletteSurface));
         if (Build.VERSION.SDK_INT >= 30) {
             getWindow().setDecorFitsSystemWindows(false);
             root.setOnApplyWindowInsetsListener((view, insets) -> {
@@ -171,7 +171,7 @@ public final class MainActivity extends Activity {
         int gap = Math.round(5 * getResources().getDisplayMetrics().density);
         for (int i = 0; i < questionCount; i++) {
             GradientDrawable fill = new GradientDrawable();
-            fill.setColor(getColor(i < currentQuestion ? R.color.plum : R.color.line));
+            fill.setColor(ThemeColors.get(this, i < currentQuestion ? R.attr.paletteAccent : R.attr.paletteOutline));
             fill.setCornerRadius(track.getLayoutParams().height / 2f);
             View segment = new View(this);
             segment.setBackground(fill);
