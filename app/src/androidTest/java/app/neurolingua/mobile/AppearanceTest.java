@@ -7,23 +7,36 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.ContextThemeWrapper;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Test;
 
 public class AppearanceTest {
-    @Test public void systemAppearanceSelectsTheWindowPaletteAndButtonContrast() {
-        checkAppearance(Configuration.UI_MODE_NIGHT_NO, Color.rgb(242, 234, 250), true);
-        checkAppearance(Configuration.UI_MODE_NIGHT_YES, Color.rgb(46, 33, 71), false);
+    @Test public void violetUsesTheSelectedSurfaceAndReadableControls() {
+        checkBothModes(R.style.AppTheme, 0xFFF2EAFA, 0xFF2E2147);
     }
 
-    private static void checkAppearance(int nightMode, int expectedPaper, boolean light) {
+    @Test public void oceanUsesTheSelectedSurfaceAndReadableControls() {
+        checkBothModes(R.style.OceanTheme, 0xFFE6F3F5, 0xFF132F3C);
+    }
+
+    @Test public void roseUsesTheSelectedSurfaceAndReadableControls() {
+        checkBothModes(R.style.RoseTheme, 0xFFFAEAF0, 0xFF3B2232);
+    }
+
+    private static void checkBothModes(int style, int lightSurface, int darkSurface) {
+        checkAppearance(style, Configuration.UI_MODE_NIGHT_NO, lightSurface);
+        checkAppearance(style, Configuration.UI_MODE_NIGHT_YES, darkSurface);
+    }
+
+    private static void checkAppearance(int style, int nightMode, int expectedPaper) {
         Context app = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Configuration config = new Configuration(app.getResources().getConfiguration());
         config.uiMode = (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK) | nightMode;
-        Context themed = new ContextThemeWrapper(app.createConfigurationContext(config),
-                app.getApplicationInfo().theme);
+        Context themed = new ContextThemeWrapper(app.createConfigurationContext(config), style);
+        boolean light = nightMode == Configuration.UI_MODE_NIGHT_NO;
 
         TypedArray window = themed.obtainStyledAttributes(new int[]{
                 android.R.attr.windowBackground, android.R.attr.windowLightStatusBar,
@@ -36,7 +49,7 @@ public class AppearanceTest {
         } finally {
             window.recycle();
         }
-        TypedArray dialog = themed.obtainStyledAttributes(dialogStyle,
+        TypedArray dialog = new ContextThemeWrapper(themed, dialogStyle).obtainStyledAttributes(
                 new int[]{android.R.attr.colorBackgroundFloating, android.R.attr.textColorPrimary});
         try {
             assertEquals(expectedPaper, dialog.getColor(0, Color.TRANSPARENT));
@@ -44,18 +57,21 @@ public class AppearanceTest {
         } finally {
             dialog.recycle();
         }
-        checkButton(themed, R.style.Control_Primary, R.color.plum);
-        checkButton(themed, R.style.Control_Hero, R.color.cream);
-        assertReadable(themed.getColor(R.color.muted), expectedPaper);
-        assertReadable(themed.getColor(R.color.ink), themed.getColor(R.color.lilac));
-        assertReadable(themed.getColor(R.color.cream), themed.getColor(R.color.hero_start));
-        assertReadable(themed.getColor(R.color.cream), themed.getColor(R.color.hero_end));
+        checkButton(themed, R.style.Control_Primary, R.attr.paletteAccent);
+        checkButton(themed, R.style.Control_Hero, R.attr.paletteHeroText);
+        assertReadable(ThemeColors.get(themed, R.attr.paletteMuted), expectedPaper);
+        assertReadable(ThemeColors.get(themed, R.attr.paletteText), ThemeColors.get(themed, R.attr.paletteSurfaceVariant));
+        GradientDrawable hero = (GradientDrawable) themed.getDrawable(R.drawable.hero);
+        int[] stops = hero.getColors();
+        assertEquals(ThemeColors.get(themed, R.attr.paletteHeroStart), stops[0]);
+        assertEquals(ThemeColors.get(themed, R.attr.paletteHeroEnd), stops[1]);
+        for (int stop : stops) assertReadable(ThemeColors.get(themed, R.attr.paletteHeroText), stop);
     }
 
     private static void checkButton(Context themed, int style, int fill) {
         TypedArray button = themed.obtainStyledAttributes(style, new int[]{android.R.attr.textColor});
         try {
-            assertReadable(button.getColor(0, Color.TRANSPARENT), themed.getColor(fill));
+            assertReadable(button.getColor(0, Color.TRANSPARENT), ThemeColors.get(themed, fill));
         } finally {
             button.recycle();
         }

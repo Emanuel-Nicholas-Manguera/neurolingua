@@ -1,0 +1,53 @@
+<resources>
+    <style name="OceanTheme" parent="AppTheme">
+        <item name="paletteSurface">#E6F3F5</item>
+        <item name="paletteText">#17323E</item>
+        <item name="paletteMuted">#486471</item>
+        <item name="paletteAccent">#185E74</item>
+        <item name="paletteOnAccent">?attr/paletteHeroText</item>
+        <item name="paletteSurfaceVariant">#D1E8EC</item>
+        <item name="paletteOutline">#8DAEBB</item>
+        <item name="paletteHeroText">#EDFCFF</item>
+        <item name="paletteHeroButtonText">#163F50</item>
+        <item name="paletteHeroStart">#153F57</item>
+        <item name="paletteHeroEnd">#27687A</item>
+        <item name="paletteControlRipple">#26185E74</item>
+        <item name="palettePrimaryRipple">#33EDFCFF</item>
+        <item name="paletteLegacyNavigation">?attr/paletteText</item>
+        <item name="paletteHeroLines">#52BFEAF0</item>
+        <item name="paletteHeroRipple">#26185E74</item>
+        <item name="spiralFirst">#216C91</item>
+        <item name="spiralFirstLight">#6EA9C7</item>
+        <item name="spiralSecond">#257B76</item>
+        <item name="spiralSecondLight">#6DBAA6</item>
+        <item name="spiralThird">#365C93</item>
+        <item name="spiralThirdLight">#80A3CC</item>
+        <item name="spiralReflection">#4CA2B4</item>
+    </style>
+
+    <style name="RoseTheme" parent="AppTheme">
+        <item name="paletteSurface">#FAEAF0</item>
+        <item name="paletteText">#452331</item>
+        <item name="paletteMuted">#745162</item>
+        <item name="paletteAccent">#8E3C60</item>
+        <item name="paletteOnAccent">?attr/paletteHeroText</item>
+        <item name="paletteSurfaceVariant">#F3D8E3</item>
+        <item name="paletteOutline">#BD94A4</item>
+        <item name="paletteHeroText">#FFF2F5</item>
+        <item name="paletteHeroButtonText">#5C2D40</item>
+        <item name="paletteHeroStart">#663048</item>
+        <item name="paletteHeroEnd">#8D4B65</item>
+        <item name="paletteControlRipple">#268E3C60</item>
+        <item name="palettePrimaryRipple">#33FFF2F5</item>
+        <item name="paletteLegacyNavigation">?attr/paletteText</item>
+        <item name="paletteHeroLines">#52FFD3DF</item>
+        <item name="paletteHeroRipple">#268E3C60</item>
+        <item name="spiralFirst">#9D456A</item>
+        <item name="spiralFirstLight">#D885A8</item>
+        <item name="spiralSecond">#AD6762</item>
+        <item name="spiralSecondLight">#E6A18D</item>
+        <item name="spiralThird">#924877</item>
+        <item name="spiralThirdLight">#C78FB1</item>
+        <item name="spiralReflection">#C67397</item>
+    </style>
+</resources>
