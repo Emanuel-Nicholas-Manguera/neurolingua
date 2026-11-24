@@ -14,8 +14,8 @@ import org.junit.Test;
 
 public class AppearanceTest {
     @Test public void systemAppearanceSelectsTheWindowPaletteAndButtonContrast() {
-        checkAppearance(Configuration.UI_MODE_NIGHT_NO, Color.rgb(252, 250, 247), true);
-        checkAppearance(Configuration.UI_MODE_NIGHT_YES, Color.rgb(34, 31, 37), false);
+        checkAppearance(Configuration.UI_MODE_NIGHT_NO, Color.rgb(242, 234, 250), true);
+        checkAppearance(Configuration.UI_MODE_NIGHT_YES, Color.rgb(46, 33, 71), false);
     }
 
     private static void checkAppearance(int nightMode, int expectedPaper, boolean light) {
@@ -46,6 +46,10 @@ public class AppearanceTest {
         }
         checkButton(themed, R.style.Control_Primary, R.color.plum);
         checkButton(themed, R.style.Control_Hero, R.color.cream);
+        assertReadable(themed.getColor(R.color.muted), expectedPaper);
+        assertReadable(themed.getColor(R.color.ink), themed.getColor(R.color.lilac));
+        assertReadable(themed.getColor(R.color.cream), themed.getColor(R.color.hero_start));
+        assertReadable(themed.getColor(R.color.cream), themed.getColor(R.color.hero_end));
     }
 
     private static void checkButton(Context themed, int style, int fill) {

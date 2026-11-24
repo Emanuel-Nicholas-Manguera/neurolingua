@@ -1,16 +1,19 @@
 <resources>
     <string name="app_name">Neurolingua</string>
-    <color name="paper">#FCFAF7</color>
-    <color name="ink">#322837</color>
-    <color name="muted">#665B68</color>
-    <color name="plum">#653B6E</color>
-    <color name="lilac">#F2EAF2</color>
-    <color name="line">#E2D9E0</color>
-    <color name="cream">#FFF8FC</color>
+    <color name="paper">#F2EAFA</color>
+    <color name="ink">#2E2042</color>
+    <color name="muted">#61536F</color>
+    <color name="plum">#684299</color>
+    <color name="lilac">#E6D9F4</color>
+    <color name="line">#AD98C2</color>
+    <color name="cream">#F8F0FF</color>
     <color name="on_plum">@color/cream</color>
-    <color name="on_cream">#402447</color>
-    <color name="control_highlight">#22653B6E</color>
-    <color name="legacy_navigation_bar">#322837</color>
+    <color name="on_cream">#452B68</color>
+    <color name="hero_start">#513077</color>
+    <color name="hero_end">#704998</color>
+    <color name="control_highlight">#26684299</color>
+    <color name="primary_highlight">#33F8F0FF</color>
+    <color name="legacy_navigation_bar">@color/ink</color>
     <bool name="light_system_bars">true</bool>
 
     <style name="AppTheme" parent="BaseAppTheme"/>
